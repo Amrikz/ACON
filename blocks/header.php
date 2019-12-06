@@ -1,6 +1,19 @@
 <?php
 session_start();
 
+//PHP функция для обратимого шифрования
+  function encode($String, $Password = 'P@SSW0RD'){
+     $Salt='BGuxLWQtKweKEMV4';
+     $StrLen = strlen($String);
+     $Seq = $Password;
+     $Gamma = '';
+     while (strlen($Gamma)<$StrLen){
+         $Seq = pack("H*",sha1($Gamma.$Seq.$Salt));
+         $Gamma.=substr($Seq,0,8);
+     }
+      return $String^$Gamma;
+  }
+
 if (!$_SESSION['user_id']) {
   if ($_POST['submit']) {
     $dbc = mysqli_connect("127.0.0.1", "root", "", "acon") OR DIE("Error with database connection");
