@@ -1,4 +1,28 @@
-<?php session_start(); ?>
+<?php
+session_start();
+
+if (!$_SESSION['user_id']) {
+  if ($_POST['submit']) {
+    $dbc = mysqli_connect("127.0.0.1", "root", "", "acon") OR DIE("Error with database connection");
+    $username = mysqli_real_escape_string($dbc, trim($_POST['username']));
+    $password = mysqli_real_escape_string($dbc, trim($_POST['password']));
+    if(!empty($username) && !empty($password)) {
+      $query = "SELECT username,password FROM 'users' WHERE username = $username AND password = $password";
+      //Work in progress
+      $_SESSION['user_id'] = $_POST['username'];
+      $_SESSION['user_password'] = $_POST['password'];
+    }
+    else{
+      $fillforms = 1;
+    }
+  }
+}
+elseif ($_POST['exit']) {
+  session_unset();
+  session_destroy();
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,15 +46,35 @@
               <a href="#" class="topLinks">Мультфильмы</a>
               <a href="#" class="topLinks">Помощь</a>
          </div>
-             <a href="#" class="topLinks" id=accountLink>Аккаунт</a>
+         <!--Logging-->
+             <?php if (!$_SESSION['user_id']) { 
+                  ?>
+                    <form method="post" id="loginForm">
+                      <input type="text" name="username" placeholder="Имя пользователя" class="loginInputs" maxlength="30">
+                      <input type="password" name="password" placeholder="Пароль" class="loginInputs">
+                      <input type="submit" name="submit" value="Войти" class="loginButton">
+                      <a href="register" name="register" class="loginButton" id="registerButton">Зарегистрироваться</a>
+                    </form>
+                  <?php
+                }
+              else{
+                  ?>
+                    <form method="post">
+                      <a href="account" id=accountLink><?= $_SESSION['user_id']?></a>
+                      <input type="submit" name="exit" class="loginButton" id="logout" value="Выходишь?">
+                    </form>
+                  <?php
+                }
+              ?>
       </div>
   </header>
       <div id=wrapper>
         <!--Поле поиска-->
           <form action="" method="GET" id=search>
-          <input name="search" placeholder="Искать здесь..." type="search">
+          <input name="search" placeholder="Искать здесь..." type="search" id="searchinput">
           <button type="submit" id="searchbutton"></button>
         </form>
+        <?php if ($fillforms) echo "<p id='about'>Пожалуйста,заполните поля</p>"?>
         <!--Content-->
         <content>
             <div class="container">

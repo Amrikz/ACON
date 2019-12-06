@@ -1,7 +1,7 @@
 *{
     margin: 0;
     padding: 0;
-    /font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto', sans-serif;
 }
 
 html,
@@ -43,7 +43,7 @@ header{
 }
 
 .links{
-    margin-left: -20px;
+  margin-right: 10px;
 }
 
 .topLinks{
@@ -55,10 +55,40 @@ header{
 }
 
 #accountLink{
-    font-family: 'Pacifico', cursive;
+    color: white;
+    text-decoration: none;
+    font-size: 25px;
+    margin-right: 25px;
+    position: relative;
+    top: 2px;
 }
 
-input {
+.loginInputs{
+  height: 25px;
+  width: 125px;
+  max-width: 200px;
+  background-color: #313442;
+  border: none;
+  margin-right: 5px;
+  color: white;
+  border-radius: 20px;
+  padding-left: 10px;
+}
+
+.loginButton{
+  cursor: pointer;
+  background-color: black;
+  border: none;
+  color: white;
+  height: 26px;
+  text-decoration: underline;
+}
+
+#registerButton{
+  font-size: 13px;
+}
+
+#searchinput {
     text-align: center;
     color: white;
     height: 30px;
@@ -101,6 +131,17 @@ content .container{
     top: 10px;
 }
 
+.error404{
+    margin-bottom: 0;
+    padding-top: 10px;
+    display: flex;
+    justify-content: center;
+    color: white;
+    text-decoration: none;
+    font-size: 600%;
+}
+
+
 footer{
     background-color: black;
     width: 100%;
@@ -125,6 +166,12 @@ footer #LOGO{
     margin: 0 20px;
 }
 
+#ban{
+  font-size: 400px;
+  display: flex;
+  justify-content: center;
+}
+
 #about{
     margin-bottom: 0;
     display: flex;
@@ -133,3 +180,4 @@ footer #LOGO{
     text-decoration: none;
     font-family: 'Pacifico', cursive;
 }
+

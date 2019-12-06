@@ -11,6 +11,12 @@ switch ($url) {
 	case 'home':
 		require 'blocks/home.php';
 		break;
+	case 'account':
+		require 'blocks/account.php';
+		break;
+	case 'register':
+		require 'blocks/register.php';
+		break;
 	default:
 		require 'blocks/404.php';
 		break;
