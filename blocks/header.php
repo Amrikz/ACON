@@ -7,7 +7,7 @@ require "lib/db.php";
 if (!$_SESSION['user_id']) {
   if ($_POST['submit']) {
     $user_username = mysqli_real_escape_string($dbc, trim($_POST['username']));
-    $user_password = mysqli_real_escape_string($dbc, trim(crypt($_POST['password'],'P@SSW0RD')));
+    $user_password = mysqli_real_escape_string($dbc, trim(crypt($_POST['password'],'DFB781F170EF30A1')));
     if(!empty($user_username) && !empty($_POST['password'])) {
       $query = "SELECT id,username FROM `users` WHERE username = '$user_username' AND password = '$user_password'";
       $data = mysqli_query($dbc,$query);
