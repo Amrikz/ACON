@@ -14,16 +14,34 @@ session_start();
       return $String^$Gamma;
   }
 
+//Логгинг пользователей
 if (!$_SESSION['user_id']) {
   if ($_POST['submit']) {
     $dbc = mysqli_connect("127.0.0.1", "root", "", "acon") OR DIE("Error with database connection");
-    $username = mysqli_real_escape_string($dbc, trim($_POST['username']));
-    $password = mysqli_real_escape_string($dbc, trim($_POST['password']));
-    if(!empty($username) && !empty($password)) {
-      $query = "SELECT username,password FROM 'users' WHERE username = $username AND password = $password";
+    $user_username = mysqli_real_escape_string($dbc, trim($_POST['username']));
+    $user_password = mysqli_real_escape_string($dbc, trim($_POST['password']));
+    if(!empty($user_username) && !empty($user_password)) {
+      //$password = encode($password);
+      echo "$user_username <br>";
+      echo "$user_password <br>";
+      $query = "SELECT id,username FROM `users` WHERE username = '$user_username' AND password = '$user_password'";
+      //$query = "SELECT * FROM `users`";
+      //Big проблема с query !!РЕШИТЬ СРОЧНО!!
+      /*mysqli_real_query($dbc,$query);
+      $data = mysqli_store_result($dbc);
+      var_dump(mysqli_fetch_assoc($data));*/
+      if(!$data){
+        echo "FUCK IT";
+      }
+      elseif(mysqli_num_rows($data) == 1) {
       //Work in progress
-      $_SESSION['user_id'] = $_POST['username'];
-      $_SESSION['user_password'] = $_POST['password'];
+        $_SESSION['user_id'] = $_POST['username'];
+        $_SESSION['user_password'] = encode($_POST['password']);
+      //INSERT INTO `users` (`id`, `username`, `password`, `level`) VALUES (NULL, 'rikz', 'X���j��', '1');
+      }
+      else {
+        $wrongLogin = 1;
+      }
     }
     else{
       $fillforms = 1;
@@ -64,7 +82,7 @@ elseif ($_POST['exit']) {
                   ?>
                     <form method="post" id="loginForm">
                       <input type="text" name="username" placeholder="Имя пользователя" class="loginInputs" maxlength="30">
-                      <input type="password" name="password" placeholder="Пароль" class="loginInputs">
+                      <input type="password" name="password" placeholder="Пароль" class="loginInputs" maxlength="60">
                       <input type="submit" name="submit" value="Войти" class="loginButton">
                       <a href="register" name="register" class="loginButton" id="registerButton">Зарегистрироваться</a>
                     </form>
@@ -87,7 +105,10 @@ elseif ($_POST['exit']) {
           <input name="search" placeholder="Искать здесь..." type="search" id="searchinput">
           <button type="submit" id="searchbutton"></button>
         </form>
-        <?php if ($fillforms) echo "<p id='about'>Пожалуйста,заполните поля</p>"?>
+        <?php
+        if ($fillforms) echo "<p id='about'>Пожалуйста,заполните поля</p>";
+        if ($wrongLogin) echo "<p id='about'>Извините, вы должны ввести правильные имя пользователя и пароль</p>";
+        ?>
         <!--Content-->
         <content>
             <div class="container">
