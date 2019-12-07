@@ -11,6 +11,7 @@ body {
 
 body{
     background-color: #171923;    
+    color: white;
 }
 
 #wrapper{
@@ -81,11 +82,19 @@ header{
   border: none;
   color: white;
   height: 26px;
-  text-decoration: underline;
+  text-decoration: none;
 }
 
 #registerButton{
   font-size: 13px;
+}
+
+#forgot{
+  display: flex;
+  justify-content: center;
+  background-color: none;
+  color: white;
+  margin: 5px 0px 0px 0px;
 }
 
 #searchinput {

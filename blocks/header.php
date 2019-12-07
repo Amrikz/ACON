@@ -1,42 +1,25 @@
 <?php
 session_start();
 
-//PHP функция для обратимого шифрования
-  function encode($String, $Password = 'P@SSW0RD'){
-     $Salt='BGuxLWQtKweKEMV4';
-     $StrLen = strlen($String);
-     $Seq = $Password;
-     $Gamma = '';
-     while (strlen($Gamma)<$StrLen){
-         $Seq = pack("H*",sha1($Gamma.$Seq.$Salt));
-         $Gamma.=substr($Seq,0,8);
-     }
-      return $String^$Gamma;
-  }
-
 //Логгинг пользователей
 if (!$_SESSION['user_id']) {
   if ($_POST['submit']) {
     $dbc = mysqli_connect("127.0.0.1", "root", "", "acon") OR DIE("Error with database connection");
     $user_username = mysqli_real_escape_string($dbc, trim($_POST['username']));
-    $user_password = mysqli_real_escape_string($dbc, trim($_POST['password']));
+    $user_password = mysqli_real_escape_string($dbc, trim(crypt($_POST['password'],'P@SSW0RD')));
     if(!empty($user_username) && !empty($user_password)) {
-      //$password = encode($password);
-      echo "$user_username <br>";
-      echo "$user_password <br>";
       $query = "SELECT id,username FROM `users` WHERE username = '$user_username' AND password = '$user_password'";
       //$query = "SELECT * FROM `users`";
       //Big проблема с query !!РЕШИТЬ СРОЧНО!!
-      /*mysqli_real_query($dbc,$query);
-      $data = mysqli_store_result($dbc);
-      var_dump(mysqli_fetch_assoc($data));*/
+      //mysqli_real_query($dbc,$query);
+      $data = mysqli_query($dbc,$query);
       if(!$data){
         echo "FUCK IT";
       }
       elseif(mysqli_num_rows($data) == 1) {
       //Work in progress
         $_SESSION['user_id'] = $_POST['username'];
-        $_SESSION['user_password'] = encode($_POST['password']);
+        $_SESSION['user_password'] = $_POST['password'];
       //INSERT INTO `users` (`id`, `username`, `password`, `level`) VALUES (NULL, 'rikz', 'X���j��', '1');
       }
       else {
@@ -107,7 +90,8 @@ elseif ($_POST['exit']) {
         </form>
         <?php
         if ($fillforms) echo "<p id='about'>Пожалуйста,заполните поля</p>";
-        if ($wrongLogin) echo "<p id='about'>Извините, вы должны ввести правильные имя пользователя и пароль</p>";
+        if ($wrongLogin) echo "<p id='about'>Извините, вы должны ввести правильные имя пользователя и пароль</p>
+        						<a href='forgot' id='forgot'>Забыли пароль?</a>";
         ?>
         <!--Content-->
         <content>

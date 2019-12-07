@@ -11,6 +11,9 @@ switch ($url) {
 	case 'home':
 		require 'blocks/home.php';
 		break;
+	case 'forgot':
+		require 'blocks/forgpass.php';
+		break;
 	case 'account':
 		require 'blocks/account.php';
 		break;
