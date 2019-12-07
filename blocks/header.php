@@ -7,19 +7,14 @@ if (!$_SESSION['user_id']) {
     $dbc = mysqli_connect("127.0.0.1", "root", "", "acon") OR DIE("Error with database connection");
     $user_username = mysqli_real_escape_string($dbc, trim($_POST['username']));
     $user_password = mysqli_real_escape_string($dbc, trim(crypt($_POST['password'],'P@SSW0RD')));
-    if(!empty($user_username) && !empty($user_password)) {
+    if(!empty($user_username) && !empty($_POST['password'])) {
       $query = "SELECT id,username FROM `users` WHERE username = '$user_username' AND password = '$user_password'";
-      //$query = "SELECT * FROM `users`";
-      //Big проблема с query !!РЕШИТЬ СРОЧНО!!
-      //mysqli_real_query($dbc,$query);
       $data = mysqli_query($dbc,$query);
-      if(!$data){
-        echo "FUCK IT";
-      }
-      elseif(mysqli_num_rows($data) == 1) {
+      if(mysqli_num_rows($data) == 1) {
       //Work in progress
-        $_SESSION['user_id'] = $_POST['username'];
-        $_SESSION['user_password'] = $_POST['password'];
+      	$row = mysqli_fetch_array($data);
+        $_SESSION['user_id'] = $row['id'];
+        $_SESSION['user_username'] = $row['username'];
       //INSERT INTO `users` (`id`, `username`, `password`, `level`) VALUES (NULL, 'rikz', 'X���j��', '1');
       }
       else {
@@ -74,7 +69,7 @@ elseif ($_POST['exit']) {
               else{
                   ?>
                     <form method="post">
-                      <a href="account" id=accountLink><?= $_SESSION['user_id']?></a>
+                      <a href="account" id=accountLink><?= $_SESSION['user_username']?></a>
                       <input type="submit" name="exit" class="loginButton" id="logout" value="Выходишь?">
                     </form>
                   <?php
