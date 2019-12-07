@@ -89,6 +89,39 @@ header{
   font-size: 13px;
 }
 
+#registrationButton{
+  cursor: pointer;
+  margin: 10px 0;
+  border: none;
+  color: white;
+  text-decoration: none;
+}
+
+#registrationForm{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.registrationLabels{
+  font-size: 20px;
+  color: white;
+  font-family: 'Pacifico', cursive;
+  margin: 10px 0;
+}
+
+.registrationInputs{
+  height: 30px;
+  width: 40vw;
+  background-color: #313442;
+  border: none;
+  margin-right: 5px;
+  color: white;
+  border-radius: 20px;
+  padding-left: 10px;
+}
+
 #forgot{
   display: flex;
   justify-content: center;

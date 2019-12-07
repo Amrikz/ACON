@@ -58,7 +58,7 @@ elseif ($_POST['exit']) {
          <!--Logging-->
              <?php if (!$_SESSION['user_id']) { 
                   ?>
-                    <form method="post" id="loginForm">
+                    <form method="POST" id="loginForm">
                       <input type="text" name="username" placeholder="Имя пользователя" class="loginInputs" maxlength="30">
                       <input type="password" name="password" placeholder="Пароль" class="loginInputs" maxlength="60">
                       <input type="submit" name="submit" value="Войти" class="loginButton">
@@ -68,7 +68,7 @@ elseif ($_POST['exit']) {
                 }
               else{
                   ?>
-                    <form method="post">
+                    <form method="POST">
                       <a href="account" id=accountLink><?= $_SESSION['user_username']?></a>
                       <input type="submit" name="exit" class="loginButton" id="logout" value="Выходишь?">
                     </form>
@@ -80,9 +80,9 @@ elseif ($_POST['exit']) {
       <div id=wrapper>
         <!--Поле поиска-->
           <form action="" method="GET" id=search>
-          <input name="search" placeholder="Искать здесь..." type="search" id="searchinput">
-          <button type="submit" id="searchbutton"></button>
-        </form>
+            <input name="search" placeholder="Искать здесь..." type="search" id="searchinput">
+            <button type="submit" id="searchbutton" name="search"></button>
+          </form>
         <?php
         if ($fillforms) echo "<p id='about'>Пожалуйста,заполните поля</p>";
         if ($wrongLogin) echo "<p id='about'>Извините, вы должны ввести правильные имя пользователя и пароль</p>
