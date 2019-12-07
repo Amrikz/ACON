@@ -94,7 +94,9 @@ header{
   margin: 10px 0;
   border: none;
   color: white;
-  text-decoration: none;
+  text-decoration: underline;
+  background-color: #212431;
+  font-size: 30px;
 }
 
 #registrationForm{

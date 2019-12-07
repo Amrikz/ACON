@@ -1,21 +1,20 @@
 <?php
 session_start();
 
+require "lib/db.php";
+
 //Логгинг пользователей
 if (!$_SESSION['user_id']) {
   if ($_POST['submit']) {
-    $dbc = mysqli_connect("127.0.0.1", "root", "", "acon") OR DIE("Error with database connection");
     $user_username = mysqli_real_escape_string($dbc, trim($_POST['username']));
     $user_password = mysqli_real_escape_string($dbc, trim(crypt($_POST['password'],'P@SSW0RD')));
     if(!empty($user_username) && !empty($_POST['password'])) {
       $query = "SELECT id,username FROM `users` WHERE username = '$user_username' AND password = '$user_password'";
       $data = mysqli_query($dbc,$query);
       if(mysqli_num_rows($data) == 1) {
-      //Work in progress
       	$row = mysqli_fetch_array($data);
         $_SESSION['user_id'] = $row['id'];
         $_SESSION['user_username'] = $row['username'];
-      //INSERT INTO `users` (`id`, `username`, `password`, `level`) VALUES (NULL, 'rikz', 'X���j��', '1');
       }
       else {
         $wrongLogin = 1;
