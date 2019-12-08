@@ -225,3 +225,11 @@ footer #LOGO{
     font-family: 'Pacifico', cursive;
 }
 
+.accountname{
+  margin-bottom: 0;
+  display: flex;
+  justify-content: center;
+  color: white;
+  text-decoration: none;
+  font-size: 400%;
+}

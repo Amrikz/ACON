@@ -11,13 +11,11 @@ $maillimiter = 80;
 		$email = mysqli_real_escape_string($dbc, trim($_POST['email']));
 		if (iconv_strlen($username) <= $namelimiter && iconv_strlen($_POST['password']) <= $passlimiter && iconv_strlen($email) <= $maillimiter) {
 			if(!empty($username) && !empty($password1) && !empty($password2) && ($password1 == $password2) && !empty($email)) {
-				$password1 = substr($password1, 11); 
+				$password1 = substr($password1, 12); 
 				$query = "SELECT * FROM `users` WHERE username = '$username'";
 				$data = mysqli_query($dbc, $query); //Начало хэша с 12 строки (Теперь без спойлеров!)
 				if(mysqli_num_rows($data) == 0) {
-					//$query ="INSERT INTO `signup` (username, password) VALUES ('$username', SHA('$password2'))";
-					//INSERT INTO `users` (`id`, `username`, `password`, `email` , `level`) VALUES (NULL, '$username', '$password1', 'SHA($email)' , '3');
-					$query = "SELECT * FROM `users`";
+					$query = "INSERT INTO `users` (`id`, `username`, `password`, `email` , `level`) VALUES (NULL, '$username', '$password1', SHA('$email') , '3')";
 					mysqli_query($dbc,$query);
 					$query = "SELECT id,username FROM `users` WHERE username = '$username'";
 					$data = mysqli_query($dbc, $query);
@@ -26,7 +24,8 @@ $maillimiter = 80;
 	        		$_SESSION['user_username'] = $row['username'];
 	        		echo "<p id='about'>Регистрация завершена успешно!</p>";
 					mysqli_close($dbc);
-					exit();
+					$mainRedirect = '1';
+					exit("<meta http-equiv='refresh' content='0; url= $_SERVER[PHP_SELF]'>");
 				}
 				else {
 					echo "<p id='about'>Логин уже существует</p>";
@@ -57,6 +56,8 @@ $maillimiter = 80;
 		<?php
 	}
 	else{
+		$_SESSION['mainRedirect'] = '1';
 		echo "<p id='about'>Вы уже вошли в аккаунт,зачем вам регистрация?</p>";
+		exit("<meta http-equiv='refresh' content='0; url= $_SERVER[PHP_SELF]'>");
 	}
 ?>
