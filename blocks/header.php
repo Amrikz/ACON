@@ -51,11 +51,11 @@ elseif ($_POST['exit']) {
 <head>
     <meta charset="UTF-8">
     <title>Action Online</title>
-    <link rel="stylesheet" href="style/style.css">
+    <link rel="stylesheet" href="../style/style.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Pacifico&display=swap" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/7d59cbd2d7.js" crossorigin="anonymous"></script>
+    <link href="../style/fontawesome/css/all.css" rel="stylesheet">
     <link rel="icon" href="images/favicon.ico" type="image/x-icon">
     <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
 </head>
@@ -95,7 +95,7 @@ elseif ($_POST['exit']) {
         <!--Поле поиска-->
           <form action="" method="GET" id=search>
             <input name="search" placeholder="Искать здесь..." type="search" id="searchinput">
-            <button type="submit" id="searchbutton" name="search"></button>
+            <button type="submit" id="searchbutton" name="search" ><i class="fas fa-search" id="searchsymbol"></i></button>
           </form>
         <?php
         if ($fillforms) echo "<p id='message'>Пожалуйста,заполните поля</p>";

@@ -19,7 +19,7 @@ define('MAILLIMITER',  80);
 					mysqli_stmt_execute($stmt);
 					mysqli_stmt_bind_result($stmt,$user);
 					if(!mysqli_stmt_fetch($stmt)) {
-						$query = "INSERT INTO `users` (`id`, `username`, `password`, `email` , `level`) VALUES (NULL, ? , ? , SHA( ? ) , '3')";
+						$query = "INSERT INTO `users` (`id`, `username`, `password`, `email` , `level`) VALUES (NULL, ? , ? , SHA( ? ) , '4')";
 						$stmt = mysqli_prepare($dbc,$query);
 	      				mysqli_stmt_bind_param($stmt, 'sss', $username, $password1, $email);
 	      				mysqli_stmt_execute($stmt);
