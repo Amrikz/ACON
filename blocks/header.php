@@ -24,13 +24,12 @@ if (!$_SESSION['user_id']) {
       mysqli_stmt_bind_result($stmt,$id,$user);
       while (mysqli_stmt_fetch($stmt)) {
         //WORK
-        $id
-        $user
+        $fetched_id[] = $id;
+        $fetched_username[] = $user;
       }
-      if(mysqli_num_rows($id) == 1) {
-      	$row = mysqli_fetch_array($data);
-        $_SESSION['user_id'] = $row['id'];
-        $_SESSION['user_username'] = $row['username'];
+      if($id == 1) {
+        $_SESSION['user_id'] = $fetched_id[0];
+        $_SESSION['user_username'] = $fetched_username[0];
       }
       else {
         $wrongLogin = 1;
@@ -99,8 +98,8 @@ elseif ($_POST['exit']) {
             <button type="submit" id="searchbutton" name="search"></button>
           </form>
         <?php
-        if ($fillforms) echo "<p id='about'>Пожалуйста,заполните поля</p>";
-        if ($wrongLogin) echo "<p id='about'>Извините, вы должны ввести правильные имя пользователя и пароль</p>
+        if ($fillforms) echo "<p id='message'>Пожалуйста,заполните поля</p>";
+        if ($wrongLogin) echo "<p id='message'>Извините, вы должны ввести правильные имя пользователя и пароль</p>
         						<a href='forgot' id='forgot'>Забыли пароль?</a>";
         ?>
         <!--Content-->

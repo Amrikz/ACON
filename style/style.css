@@ -225,6 +225,15 @@ footer #LOGO{
     font-family: 'Pacifico', cursive;
 }
 
+#message{
+    margin-bottom: 0;
+    display: flex;
+    justify-content: center;
+    color: red;
+    text-decoration: none;
+    font-family: 'Pacifico', cursive;
+}
+
 .accountname{
   margin-bottom: 0;
   display: flex;
