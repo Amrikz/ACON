@@ -17,9 +17,17 @@ if (!$_SESSION['user_id']) {
     $user_password = mysqli_real_escape_string($dbc, trim(crypt($_POST['password'],'$1$'.$_POST['password'].'$')));
     if(!empty($user_username) && !empty($_POST['password'])) {
       $user_password = substr($user_password, 12); 
-      $query = "SELECT id,username FROM `users` WHERE username = '$user_username' AND password = '$user_password'";
-      $data = mysqli_query($dbc,$query);
-      if(mysqli_num_rows($data) == 1) {
+      $query = "SELECT id,username FROM `users` WHERE username = ? AND password = ? LIMIT 1";
+      $stmt = mysqli_prepare($dbc,$query);
+      mysqli_stmt_bind_param($stmt, 'ss', $user_username, $user_password);
+      mysqli_stmt_execute($stmt);
+      mysqli_stmt_bind_result($stmt,$id,$user);
+      while (mysqli_stmt_fetch($stmt)) {
+        //WORK
+        $id
+        $user
+      }
+      if(mysqli_num_rows($id) == 1) {
       	$row = mysqli_fetch_array($data);
         $_SESSION['user_id'] = $row['id'];
         $_SESSION['user_username'] = $row['username'];

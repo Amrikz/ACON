@@ -1,6 +1,6 @@
 <?php 
 //WORK
-$namelimiter = 30;
+define('NAMELIMETER',  30);
 $passlimiter = 60;
 $maillimiter = 80;
 
@@ -9,7 +9,7 @@ $maillimiter = 80;
 		$password1 = mysqli_real_escape_string($dbc, trim(crypt($_POST['password'],'$1$'.$_POST['password'].'$')));
 		$password2 = mysqli_real_escape_string($dbc, trim(crypt($_POST['confirmPassword'],'$1$'.$_POST['confirmPassword'].'$')));
 		$email = mysqli_real_escape_string($dbc, trim($_POST['email']));
-		if (iconv_strlen($username) <= $namelimiter && iconv_strlen($_POST['password']) <= $passlimiter && iconv_strlen($email) <= $maillimiter) {
+		if (iconv_strlen($username) <= NAMELIMETER && iconv_strlen($_POST['password']) <= $passlimiter && iconv_strlen($email) <= $maillimiter) {
 			if(!empty($username) && !empty($password1) && !empty($password2) && ($password1 == $password2) && !empty($email)) {
 				$password1 = substr($password1, 12); 
 				$query = "SELECT * FROM `users` WHERE username = '$username'";
@@ -44,7 +44,7 @@ $maillimiter = 80;
 		?>
 		<form method="post" id="registrationForm">
 			<label class="registrationLabels">Имя пользователя</label>
-			<input type="text" name="username" placeholder="..." class="registrationInputs" maxlength="<?=$namelimiter?>">
+			<input type="text" name="username" placeholder="..." class="registrationInputs" maxlength="<?=NAMELIMETER?>">
 			<label class="registrationLabels">Пароль</label>
 			<input type="password" name="password" placeholder="..." class="registrationInputs" maxlength="<?=$passlimiter?>">
 			<label class="registrationLabels">Подтверждение пароля</label>
