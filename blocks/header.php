@@ -23,11 +23,10 @@ if (!$_SESSION['user_id']) {
       mysqli_stmt_execute($stmt);
       mysqli_stmt_bind_result($stmt,$id,$user);
       while (mysqli_stmt_fetch($stmt)) {
-        //WORK
         $fetched_id[] = $id;
         $fetched_username[] = $user;
       }
-      if($id == 1) {
+      if($id) {
         $_SESSION['user_id'] = $fetched_id[0];
         $_SESSION['user_username'] = $fetched_username[0];
       }
@@ -44,6 +43,20 @@ elseif ($_POST['exit']) {
   session_unset();
   session_destroy();
 }
+/*Выход из аккаунта при его отсутсвии в базе данных
+elseif ($_SESSION['user_id']) {    
+  $query = "SELECT id,username FROM `users` WHERE id = ? LIMIT 1";
+  $stmt = mysqli_prepare($dbc,$query);
+  mysqli_stmt_bind_param($stmt, 's', $_SESSION['user_id']);
+  mysqli_stmt_execute($stmt);
+  mysqli_stmt_bind_result($stmt,$id,$user);
+  mysqli_stmt_fetch($stmt);
+  echo $id;
+  if (!$id) {
+    $_SESSION['user_id'] = 0;
+    $_SESSION['user_username'] = 0;
+  }
+}*/
 
 ?>
 <!DOCTYPE html>

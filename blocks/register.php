@@ -19,7 +19,7 @@ define('MAILLIMITER',  80);
 					mysqli_stmt_execute($stmt);
 					mysqli_stmt_bind_result($stmt,$user);
 					if(!mysqli_stmt_fetch($stmt)) {
-						$query = "INSERT INTO `users` (`id`, `username`, `password`, `email` , `level`) VALUES (NULL, ? , ? , SHA( ? ) , '4')";
+						$query = "INSERT INTO `users` (`id`, `username`, `password`, `email` , `role`) VALUES (NULL, ? , ? , SHA( ? ) , '4')";
 						$stmt = mysqli_prepare($dbc,$query);
 	      				mysqli_stmt_bind_param($stmt, 'sss', $username, $password1, $email);
 	      				mysqli_stmt_execute($stmt);
@@ -35,7 +35,7 @@ define('MAILLIMITER',  80);
 	        			$_SESSION['user_username'] = $fetched_username[0];
 		        		echo "<p id='about'>Регистрация завершена успешно!</p>";
 						mysqli_close($dbc);
-						$mainRedirect = '1';
+						$_SESSION['mainRedirect'] = '1';
 						exit("<meta http-equiv='refresh' content='0; url= $_SERVER[PHP_SELF]'>");
 					}
 					else {
