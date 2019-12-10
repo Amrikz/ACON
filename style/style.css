@@ -23,7 +23,7 @@ body{
 header{
     background-color: black;
     width: 100%;
-    height: 35px;
+    min-height: 35px;
 }
 
 #headWrapper{
@@ -243,4 +243,31 @@ footer #LOGO{
   color: white;
   text-decoration: none;
   font-size: 400%;
+}
+
+#Creator{
+  margin-bottom: 0;
+  display: flex;
+  justify-content: center;
+  color: purple;
+  text-decoration: none;
+  font-size: 200%;
+}
+
+#Admin{
+  margin-bottom: 0;
+  display: flex;
+  justify-content: center;
+  color: red;
+  text-decoration: none;
+  font-size: 200%;
+}
+
+#Mondiator{
+  margin-bottom: 0;
+  display: flex;
+  justify-content: center;
+  color: green;
+  text-decoration: none;
+  font-size: 200%;
 }
