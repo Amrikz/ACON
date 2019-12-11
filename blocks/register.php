@@ -5,26 +5,26 @@ define('PASSLIMITER',  60);
 define('MAILLIMITER',  80);
 
 	if($_POST['register']){
-		$username = mysqli_real_escape_string($dbc, trim($_POST['username']));
-		$password1 = mysqli_real_escape_string($dbc, trim(crypt($_POST['password'],'$1$'.$_POST['password'].'$')));
-		$password2 = mysqli_real_escape_string($dbc, trim(crypt($_POST['confirmPassword'],'$1$'.$_POST['confirmPassword'].'$')));
-		$email = mysqli_real_escape_string($dbc, trim($_POST['email']));
+		$username = mysqli_real_escape_string($GLOBALS['dbc'], trim($_POST['username']));
+		$password1 = mysqli_real_escape_string($GLOBALS['dbc'], trim(crypt($_POST['password'],'$1$'.$_POST['password'].'$')));
+		$password2 = mysqli_real_escape_string($GLOBALS['dbc'], trim(crypt($_POST['confirmPassword'],'$1$'.$_POST['confirmPassword'].'$')));
+		$email = mysqli_real_escape_string($GLOBALS['dbc'] trim($_POST['email']));
 		if (iconv_strlen($username) <= NAMELIMETER && iconv_strlen($_POST['password']) <= PASSLIMITER && iconv_strlen($email) <= MAILLIMITER) {
 			if(!empty($username) && !empty($password1) && !empty($password2) && !empty($email)) {
 				if ($password1 == $password2) {
 					$password1 = substr($password1, 12); //Начало хэша с 12 строки (Теперь без спойлеров!)
 					$query = "SELECT username FROM `users` WHERE username = ? LIMIT 1";
-					$stmt = mysqli_prepare($dbc,$query);
+					$stmt = mysqli_prepare($GLOBALS['dbc'],$query);
 					mysqli_stmt_bind_param($stmt, 's', $username);
 					mysqli_stmt_execute($stmt);
 					mysqli_stmt_bind_result($stmt,$user);
 					if(!mysqli_stmt_fetch($stmt)) {
 						$query = "INSERT INTO `users` (`id`, `username`, `password`, `email` , `role`) VALUES (NULL, ? , ? , SHA( ? ) , '4')";
-						$stmt = mysqli_prepare($dbc,$query);
+						$stmt = mysqli_prepare($GLOBALS['dbc'],$query);
 	      				mysqli_stmt_bind_param($stmt, 'sss', $username, $password1, $email);
 	      				mysqli_stmt_execute($stmt);
 						$query = "SELECT id,username FROM `users` WHERE username = ? LIMIT 1";
-						$stmt = mysqli_prepare($dbc,$query);
+						$stmt = mysqli_prepare($GLOBALS['dbc'],$query);
 						mysqli_stmt_bind_param($stmt, 's', $username);
 						mysqli_stmt_execute($stmt);
 						mysqli_stmt_bind_result($stmt,$id,$user);
@@ -34,7 +34,7 @@ define('MAILLIMITER',  80);
 						$_SESSION['user_id'] = $fetched_id[0];
 	        			$_SESSION['user_username'] = $fetched_username[0];
 		        		echo "<p id='about'>Регистрация завершена успешно!</p>";
-						mysqli_close($dbc);
+						mysqli_close($GLOBALS['dbc']);
 						$_SESSION['mainRedirect'] = '1';
 						exit("<meta http-equiv='refresh' content='0; url= $_SERVER[PHP_SELF]'>");
 					}

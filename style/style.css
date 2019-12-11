@@ -187,6 +187,17 @@ content .container{
     font-size: 600%;
 }
 
+.user404{
+    margin-bottom: 0;
+    padding-top: 10px;
+    display: flex;
+    justify-content: center;
+    color: white;
+    text-decoration: none;
+    padding-top: 10vh;
+    font-size: 500%;
+}
+
 
 footer{
     background-color: black;
@@ -270,4 +281,13 @@ footer #LOGO{
   color: green;
   text-decoration: none;
   font-size: 200%;
+}
+
+#idNameButton{
+  cursor: pointer;
+  margin: 10px 0;
+  border: none;
+  color: white;
+  background-color: #212431;
+  font-size: 20px;
 }
