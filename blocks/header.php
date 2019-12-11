@@ -43,7 +43,7 @@
     session_unset();
     session_destroy();
   }
-  /*Выход из аккаунта при его отсутсвии в базе данных
+  //Выход из аккаунта при его отсутсвии в базе данных
   elseif ($_SESSION['user_id']) {    
     $query = "SELECT id,username FROM `users` WHERE id = ? LIMIT 1";
     $stmt = mysqli_prepare($GLOBALS['dbc'],$query);
@@ -51,33 +51,43 @@
     mysqli_stmt_execute($stmt);
     mysqli_stmt_bind_result($stmt,$id,$user);
     mysqli_stmt_fetch($stmt);
-    echo $id;
     if (!$id) {
       $_SESSION['user_id'] = 0;
       $_SESSION['user_username'] = 0;
     }
-  }*/
+  }
 
   //Функция проверки уровня пользователя
-  function level($user = '$_SESSION["user_username"]') {
+  function level($user = '$_SESSION["user_username"]', $id_view = 0 ) {
+    require "lib/db.php";
+    if ($id_view) {
+      $query = "SELECT users.username AS username, roles.id 
+        FROM users INNER JOIN roles 
+         ON users.role = roles.id WHERE username = '$user'";
+      $data = mysqli_query($dbc,$query);
+      $info = mysqli_fetch_assoc($data);
+      return $info['id'];
+    }
+    else{
       $query = "SELECT users.username AS username, roles.role 
         FROM users INNER JOIN roles 
          ON users.role = roles.id WHERE username = '$user'";
-      $dbc = mysqli_connect("localhost", "root", "", "acon");
-      $data = mysqli_query($GLOBALS['dbc'],$query);
+      $data = mysqli_query($dbc,$query);
       $info = mysqli_fetch_assoc($data);
       return $info['role'];
+    }
   }
 
-
+  //Функция получения имени из id
   function NameByid($id = 0) {
     if (!$id) {
       return ;
     }
     else {
+      require "lib/db.php";
       $query = "SELECT username FROM `users` WHERE id = ? LIMIT 1";
-      $stmt = mysqli_prepare($GLOBALS['dbc'],$query);
-      mysqli_stmt_bind_param($stmt,'i', $id);
+      $stmt = mysqli_prepare($dbc,$query);
+      mysqli_stmt_bind_param($stmt, 'i', $id);
       mysqli_stmt_execute($stmt);
       mysqli_stmt_bind_result($stmt,$user);
       mysqli_stmt_fetch($stmt);
@@ -100,12 +110,10 @@
       return $user;
     }
   }*/
-
-
-
+  
 
   function accountButton($id,$text = '') {
-    echo "<button type='submit' id='idNameButton' name='user_link' value=".$id.">".$text.NameByid($id)."</button>";
+    echo "<button type='submit' id='idNameButton' name='user_link' value=".$id.">".$text."<i class='line_under'>".NameByid($id)."</i></button>";
   }
 
 ?>

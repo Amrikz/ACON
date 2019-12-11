@@ -20,6 +20,12 @@ switch ($url) {
 	case 'register':
 		require 'blocks/register.php';
 		break;
+	case 'moderator':
+		require 'blocks/moderator.php';
+		break;
+	case 'admin':
+		require 'blocks/admin.php';
+		break;	
 	default:
 		require 'blocks/404.php';
 		break;

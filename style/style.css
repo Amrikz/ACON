@@ -229,9 +229,19 @@ footer #LOGO{
   justify-content: center;
 }
 
+#flexes{
+  width: 1200px;
+  display: flex;
+  justify-content: center;
+}
+
 #flex_center {
     display: flex;
     justify-content: center;
+}
+
+.line_under{
+  text-decoration: underline;
 }
 
 #about{
