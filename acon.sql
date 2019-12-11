@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.0.1
+-- version 4.7.7
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Дек 10 2019 г., 23:26
--- Версия сервера: 10.3.13-MariaDB-log
--- Версия PHP: 7.3.9
+-- Время создания: Дек 11 2019 г., 13:08
+-- Версия сервера: 5.6.38
+-- Версия PHP: 5.5.38
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -25,18 +25,34 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Структура таблицы `comments`
+--
+
+CREATE TABLE `comments` (
+  `id` int(11) NOT NULL,
+  `file_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `text` text NOT NULL,
+  `time` timestamp NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Структура таблицы `files`
 --
 
 CREATE TABLE `files` (
   `id` int(11) UNSIGNED NOT NULL,
   `title` varchar(250) NOT NULL,
-  `description` text DEFAULT NULL,
+  `description` text,
   `preview` varchar(255) DEFAULT NULL,
   `location` varchar(255) NOT NULL,
   `author` varchar(200) DEFAULT NULL,
   `creator` varchar(200) NOT NULL,
-  `upload_date` date NOT NULL
+  `upload_date` date NOT NULL,
+  `views` int(15) DEFAULT NULL,
+  `showing` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -50,6 +66,15 @@ CREATE TABLE `genres` (
   `genre` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Дамп данных таблицы `genres`
+--
+
+INSERT INTO `genres` (`id`, `genre`) VALUES
+(1, 'Фильмы'),
+(2, 'Сериалы'),
+(3, 'Мультфильмы');
+
 -- --------------------------------------------------------
 
 --
@@ -57,6 +82,7 @@ CREATE TABLE `genres` (
 --
 
 CREATE TABLE `ratings` (
+  `id` int(11) UNSIGNED NOT NULL,
   `video_id` int(11) UNSIGNED NOT NULL,
   `user_id` int(11) UNSIGNED NOT NULL,
   `rating` int(10) NOT NULL
@@ -86,12 +112,12 @@ INSERT INTO `roles` (`id`, `role`) VALUES
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `statistics`
+-- Структура таблицы `subgenres`
 --
 
-CREATE TABLE `statistics` (
-  `video_id` int(11) NOT NULL,
-  `views` int(15) DEFAULT NULL
+CREATE TABLE `subgenres` (
+  `genre_id` int(11) NOT NULL,
+  `genre` varchar(150) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -105,7 +131,7 @@ CREATE TABLE `users` (
   `username` varchar(60) NOT NULL,
   `password` varchar(150) NOT NULL,
   `email` varchar(150) NOT NULL,
-  `role` int(10) NOT NULL DEFAULT 4
+  `role` int(10) NOT NULL DEFAULT '4'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -121,6 +147,12 @@ INSERT INTO `users` (`id`, `username`, `password`, `email`, `role`) VALUES
 --
 
 --
+-- Индексы таблицы `comments`
+--
+ALTER TABLE `comments`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Индексы таблицы `files`
 --
 ALTER TABLE `files`
@@ -133,16 +165,16 @@ ALTER TABLE `genres`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Индексы таблицы `ratings`
+--
+ALTER TABLE `ratings`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Индексы таблицы `roles`
 --
 ALTER TABLE `roles`
   ADD PRIMARY KEY (`id`);
-
---
--- Индексы таблицы `statistics`
---
-ALTER TABLE `statistics`
-  ADD PRIMARY KEY (`video_id`);
 
 --
 -- Индексы таблицы `users`
@@ -155,6 +187,12 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT для таблицы `comments`
+--
+ALTER TABLE `comments`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT для таблицы `files`
 --
 ALTER TABLE `files`
@@ -164,6 +202,12 @@ ALTER TABLE `files`
 -- AUTO_INCREMENT для таблицы `genres`
 --
 ALTER TABLE `genres`
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT для таблицы `ratings`
+--
+ALTER TABLE `ratings`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
@@ -171,12 +215,6 @@ ALTER TABLE `genres`
 --
 ALTER TABLE `roles`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT для таблицы `statistics`
---
-ALTER TABLE `statistics`
-  MODIFY `video_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT для таблицы `users`
