@@ -59,11 +59,10 @@
   }*/
 
   //Функция проверки уровня пользователя
-  function level() {
-      $name_user = $_SESSION['user_username'];
+  function level($user = '$_SESSION["user_username"]') {
       $query = "SELECT users.username AS username, roles.role 
         FROM users INNER JOIN roles 
-         ON users.role = roles.id WHERE username = '$name_user'";
+         ON users.role = roles.id WHERE username = '$user'";
       $dbc = mysqli_connect("localhost", "root", "", "acon");
       $data = mysqli_query($GLOBALS['dbc'],$query);
       $info = mysqli_fetch_assoc($data);
@@ -71,7 +70,7 @@
   }
 
 
-  function idName($id = 0) {
+  function NameByid($id = 0) {
     if (!$id) {
       return ;
     }
@@ -87,8 +86,26 @@
   }
 
 
+  /*function idByName($name = 0) {
+    if (!$name) {
+      return;
+    }
+    else {
+      $query = "SELECT username FROM `users` WHERE id = ? LIMIT 1";
+      $stmt = mysqli_prepare($GLOBALS['dbc'],$query);
+      mysqli_stmt_bind_param($stmt,'i', $id);
+      mysqli_stmt_execute($stmt);
+      mysqli_stmt_bind_result($stmt,$user);
+      mysqli_stmt_fetch($stmt);
+      return $user;
+    }
+  }*/
+
+
+
+
   function accountButton($id,$text = '') {
-    echo "<button type='submit' id='idNameButton' name='user_link' value=".$id.">".$text.idName($id)."</button>";
+    echo "<button type='submit' id='idNameButton' name='user_link' value=".$id.">".$text.NameByid($id)."</button>";
   }
 
 ?>

@@ -229,6 +229,11 @@ footer #LOGO{
   justify-content: center;
 }
 
+#flex_center {
+    display: flex;
+    justify-content: center;
+}
+
 #about{
     margin-bottom: 0;
     display: flex;

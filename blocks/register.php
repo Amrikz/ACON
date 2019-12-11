@@ -8,7 +8,7 @@ define('MAILLIMITER',  80);
 		$username = mysqli_real_escape_string($GLOBALS['dbc'], trim($_POST['username']));
 		$password1 = mysqli_real_escape_string($GLOBALS['dbc'], trim(crypt($_POST['password'],'$1$'.$_POST['password'].'$')));
 		$password2 = mysqli_real_escape_string($GLOBALS['dbc'], trim(crypt($_POST['confirmPassword'],'$1$'.$_POST['confirmPassword'].'$')));
-		$email = mysqli_real_escape_string($GLOBALS['dbc'] trim($_POST['email']));
+		$email = mysqli_real_escape_string($GLOBALS['dbc'], trim($_POST['email']));
 		if (iconv_strlen($username) <= NAMELIMETER && iconv_strlen($_POST['password']) <= PASSLIMITER && iconv_strlen($email) <= MAILLIMITER) {
 			if(!empty($username) && !empty($password1) && !empty($password2) && !empty($email)) {
 				if ($password1 == $password2) {

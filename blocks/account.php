@@ -4,22 +4,55 @@
 		exit("<meta http-equiv='refresh' content='0; url= $_SERVER[PHP_SELF]'>");
 	}
 	elseif (!$_SESSION['user_id'] && $_GET['user_link']) {
-	 	$_SESSION['guest'] = 1;
-		$_SESSION['user_username'] = idName($_GET['user_link']);
-		if (!$_SESSION['user_username']) {
+		$_SESSION['guest'] = 1;
+		$_SESSION['view_username'] = NameByid($_GET['user_link']);
+		if (!$_SESSION['view_username']) {
 			echo "<p class='user404'>Пользователь не найден!</p>";
 		}
-	} 
-	echo "<p class='accountname'>".$_SESSION['user_username']."</p>";
-	$role = level();
+	}
+	elseif ($_SESSION['user_id'] && !$_GET['user_link']) {
+		$_SESSION['guest'] = 0;
+		$_SESSION['view_username'] = $_SESSION['user_username'];
+	}
+	elseif ($_SESSION['user_id'] && $_GET['user_link']) {
+		if ($_SESSION['user_id'] == $_GET['user_link']) {
+			$_SESSION['guest'] = 0;
+			$_SESSION['view_username'] = $_SESSION['user_username'];
+		}
+		elseif ($_SESSION['user_id'] != $_GET['user_link']) {
+			$_SESSION['guest'] = 1;
+			$_SESSION['view_username'] = NameByid($_GET['user_link']);
+		}
+		if (!$_SESSION['view_username']) {
+			echo "<p class='user404'>Пользователь не найден!</p>";
+		}
+	}
+	echo "<p class='accountname'>".$_SESSION['view_username']."</p>";
+	$role = level($_SESSION['view_username']);
 	if ($role == "Creator") {
-		echo "<p id='Creator'>".$role."</p>";
+		if ($_SESSION['guest'] == 0) {
+			echo "<a href='admin'> <p id='Creator'>".$role."</p></a>";
+		}
+		else{
+			echo "<p id='Creator'>".$role."</p>";
+		}
 	}
 	if ($role == "Admin") {
-		echo "<p id='Admin'>".$role."</p>";
+		if ($_SESSION['guest'] == 0) {
+			echo "<a href='admin'> <p id='Admin'>".$role."</p></a>";
+		}
+		else {
+			echo "<p id='Admin'>".$role."</p>";
+		}
 	}
 	if ($role == "Moderator") {
-		echo "<p id='Mondiator'>".$role."</p></a>";
+		if ($_SESSION['guest'] == 0) {
+			echo "<a href='moderator'> <p id='Mondiator'>".$role."</p></a>";
+		}
+		else {
+			echo "<p id='Mondiator'>".$role."</p>";
+		}
+		
 	}
 	?>
 	<div></div>
