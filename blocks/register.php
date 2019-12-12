@@ -36,8 +36,7 @@ define('MAILLIMITER',  80);
 	        			$_SESSION['user_role'] = level();
 		        		echo "<p id='about'>Регистрация завершена успешно!</p>";
 						mysqli_close($GLOBALS['dbc']);
-						$_SESSION['mainRedirect'] = '1';
-						exit("<meta http-equiv='refresh' content='0; url= $_SERVER[PHP_SELF]'>");
+						exit("<meta http-equiv='refresh' content='0; url= home'>");
 					}
 					else {
 						echo "<p id='message'>Логин уже существует</p>";
@@ -72,8 +71,7 @@ define('MAILLIMITER',  80);
 		<?php
 	}
 	else{
-		$_SESSION['mainRedirect'] = '1';
 		echo "<p id='about'>Вы уже вошли в аккаунт,зачем вам регистрация?</p>";
-		exit("<meta http-equiv='refresh' content='0; url= $_SERVER[PHP_SELF]'>");
+		exit("<meta http-equiv='refresh' content='0; url= home'>");
 	}
 ?>
