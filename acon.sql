@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.7
+-- version 4.9.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Дек 11 2019 г., 13:08
--- Версия сервера: 5.6.38
--- Версия PHP: 5.5.38
+-- Время создания: Дек 13 2019 г., 00:44
+-- Версия сервера: 10.3.13-MariaDB-log
+-- Версия PHP: 7.3.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -45,14 +45,15 @@ CREATE TABLE `comments` (
 CREATE TABLE `files` (
   `id` int(11) UNSIGNED NOT NULL,
   `title` varchar(250) NOT NULL,
-  `description` text,
-  `preview` varchar(255) DEFAULT NULL,
-  `location` varchar(255) NOT NULL,
+  `description` text DEFAULT NULL,
+  `preview` varchar(500) DEFAULT NULL,
+  `location` varchar(500) NOT NULL,
   `author` varchar(200) DEFAULT NULL,
   `creator` varchar(200) NOT NULL,
   `upload_date` date NOT NULL,
-  `views` int(15) DEFAULT NULL,
-  `showing` int(10) NOT NULL
+  `views` int(15) UNSIGNED DEFAULT NULL,
+  `showing` int(10) UNSIGNED NOT NULL,
+  `moderating` int(11) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -131,7 +132,7 @@ CREATE TABLE `users` (
   `username` varchar(60) NOT NULL,
   `password` varchar(150) NOT NULL,
   `email` varchar(150) NOT NULL,
-  `role` int(10) NOT NULL DEFAULT '4'
+  `role` int(10) NOT NULL DEFAULT 4
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -140,7 +141,8 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `username`, `password`, `email`, `role`) VALUES
 (1, 'rikz', 'kbRmWkyZA8sM1Wn4l3iBO1', 'ebe392edf93f0f00064aa3c54c7b46b47352e0a7', 1),
-(9, 'fuf', 'bIqLDmsCPpE3qxZv1', '5968cbd2dc9e565dd1efd7e15da0b172b484bd01', 3);
+(9, 'fuf', 'bIqLDmsCPpE3qxZv1', '5968cbd2dc9e565dd1efd7e15da0b172b484bd01', 3),
+(10, 'qwerty', 'cxv7CyYSxxSMyhrsfP5/', '5182ea111238759db9c4a9902bc8ebc00b3483ef', 4);
 
 --
 -- Индексы сохранённых таблиц
@@ -220,7 +222,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT для таблицы `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
