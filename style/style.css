@@ -306,3 +306,88 @@ footer #LOGO{
   background-color: #212431;
   font-size: 20px;
 }
+
+.managingButton{
+  cursor: pointer;
+  margin: 10px 0;
+  border: none;
+  color: white;
+  background-color: #212431;
+  font-size: 20px;
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+}
+
+
+
+
+
+
+
+
+.signUpMenu {
+padding: 10px;
+border: none;
+background: rgba(0, 0, 0, 70%);
+width: 50px;
+height: 50px;
+color: white;
+font-size: 24px;
+border: none;
+border-radius: 5px;
+}
+
+
+.signUpDiv {
+position: relative;
+display: inline-block;
+}
+
+.dropdown-signup {
+display: none;
+position: absolute;
+background-color:  #313442;
+width: 200px;
+box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+z-index: 1;
+align-items: center;
+border-radius: 5px;
+}
+
+.dropdown-signup input, label {
+color: black;
+text-decoration: none;
+display: block;
+margin: 0px auto;
+text-align: center;
+font-size: 18px;
+border: 0px none;
+}
+.dropdown-signup input {
+width: 180px;
+height: 35px;
+color: white;
+background-color: rgba(0, 0, 0, 70%);
+border-radius: 5px;
+}
+.dropdown-signup button {
+width: 150px;
+height: 30px;
+color: white;
+background-color: black;
+border: 0px none;
+margin: 10px 12.5%;
+}
+.dropdown-signup label {
+padding-top: 10px;
+}
+
+.signUpDiv:hover .dropdown-signup {
+display: block;
+}
+
+.signUpDiv:hover .signUpMenu, .dropdown-signup button:hover {
+background-color: gray;
+color: black;
+}

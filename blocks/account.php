@@ -9,26 +9,31 @@
 		if (!$_SESSION['view_username']) {
 			echo "<p class='user404'>Пользователь не найден!</p>";
 		}
+		else{
+			$role = level($_SESSION['view_username']);
+		}
 	}
 	elseif ($_SESSION['user_id'] && !$_GET['user_link']) {
 		$_SESSION['guest'] = 0;
 		$_SESSION['view_username'] = $_SESSION['user_username'];
+		$role = $_SESSION['user_role'];
 	}
 	elseif ($_SESSION['user_id'] && $_GET['user_link']) {
 		if ($_SESSION['user_id'] == $_GET['user_link']) {
 			$_SESSION['guest'] = 0;
 			$_SESSION['view_username'] = $_SESSION['user_username'];
+			$role = $_SESSION['user_role'];
 		}
 		elseif ($_SESSION['user_id'] != $_GET['user_link']) {
 			$_SESSION['guest'] = 1;
 			$_SESSION['view_username'] = NameByid($_GET['user_link']);
+			$role = level($_SESSION['view_username']);
 		}
 		if (!$_SESSION['view_username']) {
 			echo "<p class='user404'>Пользователь не найден!</p>";
 		}
 	}
 	echo "<p class='accountname'>".$_SESSION['view_username']."</p>";
-	$role = level($_SESSION['view_username']);
 	if ($role == "Creator") {
 		if ($_SESSION['guest'] == 0) {
 			echo "<a href='admin'> <p id='Creator'>".$role."</p></a>";

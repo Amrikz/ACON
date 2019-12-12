@@ -33,6 +33,7 @@ define('MAILLIMITER',  80);
 	        				$fetched_username[] = $user;
 						$_SESSION['user_id'] = $fetched_id[0];
 	        			$_SESSION['user_username'] = $fetched_username[0];
+	        			$_SESSION['user_role'] = level();
 		        		echo "<p id='about'>Регистрация завершена успешно!</p>";
 						mysqli_close($GLOBALS['dbc']);
 						$_SESSION['mainRedirect'] = '1';

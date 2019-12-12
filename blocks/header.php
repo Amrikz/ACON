@@ -29,6 +29,7 @@
         if($id) {
           $_SESSION['user_id'] = $fetched_id[0];
           $_SESSION['user_username'] = $fetched_username[0];
+          $_SESSION['user_role'] = level();
         }
         else {
           $wrongLogin = 1;
@@ -54,12 +55,16 @@
     if (!$id) {
       $_SESSION['user_id'] = 0;
       $_SESSION['user_username'] = 0;
+	  $_SESSION['user_role'] = 0;
     }
   }
 
   //Функция проверки уровня пользователя
-  function level($user = '$_SESSION["user_username"]', $id_view = 0 ) {
+  function level($user = 0, $id_view = 0 ) {
     require "lib/db.php";
+    if (!$user) {
+    	$user = $_SESSION["user_username"];
+    }
     if ($id_view) {
       $query = "SELECT users.username AS username, roles.id 
         FROM users INNER JOIN roles 
@@ -154,7 +159,24 @@
               else{
                   ?>
                     <form method="POST">
-                      <a href="account" id=accountLink><?= $_SESSION['user_username']?></a>
+                      <div class="signUpDiv">
+                      	<a href="account" id=accountLink><?= $_SESSION['user_username']?></a>
+                      	<?php
+                      		$role = level('',1);
+	                      	if ($role <= 3) { 
+	                      		?>
+	                     		<div class='dropdown-signup'>
+								<a href='moderator' name='register' class='managingButton'>Модерирование</a>
+								<?php
+									if ($role <= 2) {
+										echo "<a href='admin' name='register' class='managingButton'>Администрирование</a>";
+									} 
+								?>
+						  		</div>
+						  		<?php
+	                      	}
+					  	?>
+					  </div>
                       <input type="submit" name="exit" class="loginButton" id="logout" value="Выходишь?">
                     </form>
                   <?php
