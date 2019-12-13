@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Дек 13 2019 г., 00:44
+-- Время создания: Дек 14 2019 г., 02:41
 -- Версия сервера: 10.3.13-MariaDB-log
 -- Версия PHP: 7.3.9
 
@@ -56,6 +56,14 @@ CREATE TABLE `files` (
   `moderating` int(11) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Дамп данных таблицы `files`
+--
+
+INSERT INTO `files` (`id`, `title`, `description`, `preview`, `location`, `author`, `creator`, `upload_date`, `views`, `showing`, `moderating`) VALUES
+(1, 'qweqwr', NULL, NULL, 'C:\\OSPanel\\userdata\\php_upload\\phpAE2E.tmp', 'ADADAD', 'rikz', '2019-12-14', NULL, 1, 0),
+(2, 'aaa', 'aaa', 'C:\\OSPanel\\domains\\ACON\\lib\\..\\users\\rikz\\factorio.png', 'C:\\OSPanel\\domains\\ACON\\lib\\..\\users\\rikz\\3bat.png', 'aaa', 'rikz', '2019-12-14', 0, 1, 0);
+
 -- --------------------------------------------------------
 
 --
@@ -75,6 +83,18 @@ INSERT INTO `genres` (`id`, `genre`) VALUES
 (1, 'Фильмы'),
 (2, 'Сериалы'),
 (3, 'Мультфильмы');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `genre_association`
+--
+
+CREATE TABLE `genre_association` (
+  `id` int(11) UNSIGNED NOT NULL,
+  `genre_id` int(11) UNSIGNED NOT NULL,
+  `video_id` int(11) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -113,17 +133,6 @@ INSERT INTO `roles` (`id`, `role`) VALUES
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `subgenres`
---
-
-CREATE TABLE `subgenres` (
-  `genre_id` int(11) NOT NULL,
-  `genre` varchar(150) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
 -- Структура таблицы `users`
 --
 
@@ -142,7 +151,8 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `username`, `password`, `email`, `role`) VALUES
 (1, 'rikz', 'kbRmWkyZA8sM1Wn4l3iBO1', 'ebe392edf93f0f00064aa3c54c7b46b47352e0a7', 1),
 (9, 'fuf', 'bIqLDmsCPpE3qxZv1', '5968cbd2dc9e565dd1efd7e15da0b172b484bd01', 3),
-(10, 'qwerty', 'cxv7CyYSxxSMyhrsfP5/', '5182ea111238759db9c4a9902bc8ebc00b3483ef', 4);
+(10, 'qwerty', 'cxv7CyYSxxSMyhrsfP5/', '5182ea111238759db9c4a9902bc8ebc00b3483ef', 4),
+(11, 'admin', 'WpnZpUx.vTroWPXPIB0', '892e35c1818144458a1ca65e99b1bf0436986c7e', 2);
 
 --
 -- Индексы сохранённых таблиц
@@ -164,6 +174,12 @@ ALTER TABLE `files`
 -- Индексы таблицы `genres`
 --
 ALTER TABLE `genres`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `genre_association`
+--
+ALTER TABLE `genre_association`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -198,13 +214,19 @@ ALTER TABLE `comments`
 -- AUTO_INCREMENT для таблицы `files`
 --
 ALTER TABLE `files`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT для таблицы `genres`
 --
 ALTER TABLE `genres`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT для таблицы `genre_association`
+--
+ALTER TABLE `genre_association`
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT для таблицы `ratings`
@@ -222,7 +244,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT для таблицы `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

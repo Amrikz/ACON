@@ -138,6 +138,7 @@ display: inline-block;
 .registrationInputs{
   height: 30px;
   width: 40vw;
+  max-width: 1100px;
   background-color: #313442;
   border: none;
   margin-right: 5px;
@@ -271,6 +272,29 @@ footer #LOGO{
   justify-content: center;
   flex-direction: column;
   margin: 5px 0;
+}
+
+.adminTextarea{
+  height: 10%;
+  width: 80%;
+  max-width: 80%;
+  background-color: #313442;
+  border: none;
+  margin-right: 5px;
+  color: white;
+  border-radius: 5px;
+  padding-left: 10px;
+}
+
+.adminRadio{
+  margin-top: 10px;
+}
+
+.videomake{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 #flexes{
