@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.0.1
+-- version 4.7.7
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Дек 14 2019 г., 02:41
--- Версия сервера: 10.3.13-MariaDB-log
--- Версия PHP: 7.3.9
+-- Время создания: Дек 14 2019 г., 14:47
+-- Версия сервера: 5.6.38
+-- Версия PHP: 5.5.38
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -45,11 +45,11 @@ CREATE TABLE `comments` (
 CREATE TABLE `files` (
   `id` int(11) UNSIGNED NOT NULL,
   `title` varchar(250) NOT NULL,
-  `description` text DEFAULT NULL,
+  `description` text,
   `preview` varchar(500) DEFAULT NULL,
   `location` varchar(500) NOT NULL,
   `author` varchar(200) DEFAULT NULL,
-  `creator` varchar(200) NOT NULL,
+  `creator` int(11) UNSIGNED NOT NULL,
   `upload_date` date NOT NULL,
   `views` int(15) UNSIGNED DEFAULT NULL,
   `showing` int(10) UNSIGNED NOT NULL,
@@ -61,8 +61,11 @@ CREATE TABLE `files` (
 --
 
 INSERT INTO `files` (`id`, `title`, `description`, `preview`, `location`, `author`, `creator`, `upload_date`, `views`, `showing`, `moderating`) VALUES
-(1, 'qweqwr', NULL, NULL, 'C:\\OSPanel\\userdata\\php_upload\\phpAE2E.tmp', 'ADADAD', 'rikz', '2019-12-14', NULL, 1, 0),
-(2, 'aaa', 'aaa', 'C:\\OSPanel\\domains\\ACON\\lib\\..\\users\\rikz\\factorio.png', 'C:\\OSPanel\\domains\\ACON\\lib\\..\\users\\rikz\\3bat.png', 'aaa', 'rikz', '2019-12-14', 0, 1, 0);
+(13, 'GRADUATES', 'фыф', 'users\\rikz\\20100210210141!Scrooge2.jpg', 'C:\\OSPanel\\domains\\ACON\\lib\\..\\users\\rikz\\fdfdfdfd.html', '', 1, '2019-12-14', 0, 1, 0),
+(14, 'STAY IN LINK', 'Ага', 'users\\rikz\\bc172118ed375dfc9fe1406b899094860bcc9cca.png', 'C:\\OSPanel\\domains\\ACON\\lib\\..\\users\\rikz\\ppoxvmn.html', 'Ебанько', 1, '2019-12-14', 0, 1, 0),
+(15, 'ПРОКСИМА ЦЕНТАВРА', 'Планета', 'users\\rikz\\maxresdefault.jpg', 'C:\\OSPanel\\domains\\ACON\\lib\\..\\users\\rikz\\fes.html', '', 1, '2019-12-14', 0, 1, 0),
+(16, 'THE BEST GRADUATES', '', 'users\\rikz\\kakashi.png', 'C:\\OSPanel\\domains\\ACON\\lib\\..\\users\\rikz\\depositphotos_139632918-stock-illustration-blank-comic-speech-cloud-bubble.jpg', 'GFIJK YF{EQ', 1, '2019-12-14', 0, 1, 0),
+(17, 'ASSAS', '', 'users\\rikz\\13.png', 'C:\\OSPanel\\domains\\ACON\\lib\\..\\users\\rikz\\тест.docx', 'SSS', 1, '2019-12-14', 0, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -141,7 +144,7 @@ CREATE TABLE `users` (
   `username` varchar(60) NOT NULL,
   `password` varchar(150) NOT NULL,
   `email` varchar(150) NOT NULL,
-  `role` int(10) NOT NULL DEFAULT 4
+  `role` int(10) NOT NULL DEFAULT '4'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -214,7 +217,7 @@ ALTER TABLE `comments`
 -- AUTO_INCREMENT для таблицы `files`
 --
 ALTER TABLE `files`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT для таблицы `genres`

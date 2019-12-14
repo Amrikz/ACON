@@ -35,7 +35,7 @@
 				 			require "lib/db.php";
 							$query = "INSERT INTO `files` (`id`, `title`, `description`, `preview`, `location`, `author`, `creator`, `upload_date`, `views`, `showing`, `moderating`) VALUES (NULL, ?, ?, ? , ?, ?, ?, ?, '0', '1', '0')";
 						    $stmt = mysqli_prepare($GLOBALS['dbc'],$query);
-						    mysqli_stmt_bind_param($stmt, 'sssssss', $_POST['title'], $_POST['description'], $_FILES["preview"]['fin_Upl_Dir'], $_FILES["video"]['fin_Upl_Dir'], $_POST['author'], $_SESSION['user_username'], $date);
+						    mysqli_stmt_bind_param($stmt, 'sssssis', $_POST['title'], $_POST['description'], $_FILES["preview"]['fin_Upl_Dir'], $_FILES["video"]['fin_Upl_Dir'], $_POST['author'], $_SESSION['user_id'], $date);
 						    mysqli_stmt_execute($stmt);
 						    /*var_dump($_POST['title']);
 						    echo "<br>";

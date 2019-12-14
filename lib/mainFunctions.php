@@ -114,7 +114,7 @@
   
 
   function accountButton($id,$text = '') {
-    echo "<button type='submit' id='idNameButton' name='user_link' value=".$id.">".$text."<i class='line_under'>".NameByid($id)."</i></button>";
+    return "<button type='submit' id='idNameButton' name='user_link' value=".$id.">".$text."<i class='line_under'>".NameByid($id)."</i></button>";
   }
   
 ?>

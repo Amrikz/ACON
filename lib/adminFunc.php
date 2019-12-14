@@ -25,8 +25,13 @@
 				$exist = 1;
 			}
 				if ($upload){
-					$_FILES["$key"]['fin_Upl_Dir'] = $dir.$filename;
-					$fileOk = 1;
+					if ($key  == 'preview') {
+						$_FILES["$key"]['fin_Upl_Dir'] = "users\\".$_SESSION['user_username']."\\".$filename;
+					}
+					else {
+						$_FILES["$key"]['fin_Upl_Dir'] = $dir.$filename;
+						$fileOk = 1;
+					}
 				}
 				else {
 					$error = $_FILES["$key"]['error'];
