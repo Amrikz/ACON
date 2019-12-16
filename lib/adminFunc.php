@@ -4,7 +4,7 @@
 		foreach ($_FILES as $key => $value) {
 			$uploaddir = "\\..\\users\\".$_SESSION['user_username']."\\";
 			define ('SITE_ROOT', realpath(dirname(__FILE__)));
-			$filename = basename($_FILES["$key"]['name']);
+			$filename = str_replace(' ', '_', basename($_FILES["$key"]['name']));
 			if (!$filename) $filename = ' . . %$$_';
 			$dir = SITE_ROOT.$uploaddir;
 			if (!file_exists($dir) && !is_dir($dir) ) {
@@ -17,21 +17,24 @@
 			echo "<pre>";
 			/*print_r($_FILES);
 			print_r($dir.$filename);*/
-			if (!file_exists($dir.$filename)) {
-				$upload = move_uploaded_file($_FILES["$key"]['tmp_name'], $dir.$filename);
+			if ($key  == 'video') {
+				if ($_FILES["$key"]['type'] == 'video/mp4') {
+					$upload = move_uploaded_file($_FILES["$key"]['tmp_name'], $dir.$filename);
 				}
+				else{
+					echo "<p id='message'>Загрузка не выполнена.Вы пытаетесь загрузить не видеофайл.</p>";
+				}
+			}
+			elseif (!file_exists($dir.$filename)) {
+				$upload = move_uploaded_file($_FILES["$key"]['tmp_name'], $dir.$filename);
+			}
 			else {
 				echo "Файл с именем '$filename' уже существует.\n";
+				$upload = move_uploaded_file($_FILES["$key"]['tmp_name'], $dir.$filename);
 				$exist = 1;
 			}
 				if ($upload){
-					if ($key  == 'preview') {
-						$_FILES["$key"]['fin_Upl_Dir'] = "users\\".$_SESSION['user_username']."\\".$filename;
-					}
-					else {
-						$_FILES["$key"]['fin_Upl_Dir'] = $dir.$filename;
-						$fileOk = 1;
-					}
+					$_FILES["$key"]['fin_Upl_Dir'] = "users\\".$_SESSION['user_username']."\\".$filename;
 				}
 				else {
 					$error = $_FILES["$key"]['error'];

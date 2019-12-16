@@ -203,17 +203,57 @@ content .container{
 .videos{
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-between;
 }
 
 .video{
-  margin: 0px auto;
+  margin: 0 10px 10px 10px;
+  margin-bottom: 10px;
   max-width: 200px;
-  max-height: 184px;
+}
+
+#video{
+  width: 70%;
+  display: flex;
+  margin: 0 auto;
+  position: relative;
+  top: 10px;
+}
+
+#homeViews{
+  font-size: 15px;
 }
 
 .videoPreview{
   width: 200px;
-  height: 125px;
+  height: 110px;
+}
+
+.videoButton{
+  cursor: pointer;
+  border: none;
+  color: white;
+  background-color: #212431;
+}
+
+#videoTitle{
+  margin-top: 20px;
+  margin-left: 15%;
+  color: #4287f5;
+}
+
+#views{
+  position: absolute;
+  right: 15%;
+  margin-top: -1px;
+}
+
+#videoAccountbutton{
+  margin-left: 15%;
+}
+
+#videoAccountbutton button i{
+  font-size: 20px;
 }
 
 .error404{

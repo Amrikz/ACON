@@ -7,24 +7,24 @@
 	<div class="videos">
 		<?php 
 		require "lib/db.php";
-		$query = "SELECT title,preview,author,creator,upload_date FROM `files` WHERE showing = 1 ORDER BY `files`.`upload_date` DESC LIMIT 10";
+		$query = "SELECT id,title,preview,creator,upload_date,views FROM `files` WHERE showing = 1 ORDER BY `files`.`upload_date` DESC LIMIT 10";
 		$data = mysqli_query($GLOBALS['dbc'],$query);
 		$info = mysqli_fetch_assoc($data);
 		while ($info) {
-			if (!$info['preview']) {
+			if (!$info['preview'] || !file_exists($info['preview'])) {
 				$info['preview'] = "images\\vid_paceholder.jpg";
-			}
-			if ($info['author']) {
-				$info['author'] = '-'.$info['author'];
 			}
 			echo "
 	        <div class='video'>
-	            <img class='videoPreview' src=".$info['preview'].">
-	            <h4>".$info['title'].$info['author']."</h4>
+	        	<form method='GET' action='watch'>
+	            <button class='videoButton' name='vid' value=".$info['id']."><img class='videoPreview' src=".$info['preview'].">
+	            <h5>".$info['title']."</h5>
+	            </button></form>
 	            <form method='GET' action='account'>
 	            <p>".accountButton($info['creator'])."</p>
 	            </form>
-	            <h5 class='cost'>Дата загрузки: ".$info['upload_date']."</h5>
+	            <i id='homeViews'>Просмотры: ".$info['views']."</i>
+	            <h6 >Загружено: ".$info['upload_date']."</h6>
 	        </div>";
 	        $info = mysqli_fetch_assoc($data);
 		}

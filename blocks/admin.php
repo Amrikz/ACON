@@ -31,12 +31,11 @@
 				switch ($option) {
 				 	case 'add':
 				 		$date = date('o').'-'.date('n').'-'.date('j');
-				 		if ($_POST['title'] && $_FILES["video"]['fin_Upl_Dir'] && $_POST['show']) {
+				 		if ($_POST['title'] && $_FILES["video"]['fin_Upl_Dir'] && ($_POST['show'] == '0' || $_POST['show'] == '1')) {
 				 			require "lib/db.php";
-							$query = "INSERT INTO `files` (`id`, `title`, `description`, `preview`, `location`, `author`, `creator`, `upload_date`, `views`, `showing`, `moderating`) VALUES (NULL, ?, ?, ? , ?, ?, ?, ?, '0', '1', '0')";
+							$query = "INSERT INTO `files` (`id`, `title`, `description`, `preview`, `location`, `author`, `main_genre`, `creator`, `upload_date`, `views`, `showing`, `moderating`) VALUES (NULL, ?, ?, ? , ?, ?, '1' , ?, ?, '0', ?, '0')";
 						    $stmt = mysqli_prepare($GLOBALS['dbc'],$query);
-						    mysqli_stmt_bind_param($stmt, 'sssssis', $_POST['title'], $_POST['description'], $_FILES["preview"]['fin_Upl_Dir'], $_FILES["video"]['fin_Upl_Dir'], $_POST['author'], $_SESSION['user_id'], $date);
-						    mysqli_stmt_execute($stmt);
+						    mysqli_stmt_bind_param($stmt, 'sssssisi', $_POST['title'], $_POST['description'], $_FILES["preview"]['fin_Upl_Dir'], $_FILES["video"]['fin_Upl_Dir'], $_POST['author'], $_SESSION['user_id'], $date, $_POST['show']);
 						    /*var_dump($_POST['title']);
 						    echo "<br>";
 						    var_dump($_POST['description']);
@@ -51,6 +50,9 @@
 						    echo "<br>";
 						    var_dump($date);
 						    echo "<br>";*/
+						    if (!mysqli_stmt_execute($stmt)) {
+				      			echo "Error:" . mysqli_error($GLOBALS['dbc']);
+				      		}						
 
 						}
 
