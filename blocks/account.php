@@ -1,4 +1,5 @@
 <?php
+//Проверки валидности ссылоки перехода
 	if (!$_SESSION['user_id'] && !$_GET['user_link']) {
 	 	$_SESSION['mainRedirect'] = '1';
 		exit("<meta http-equiv='refresh' content='0; url= $_SERVER[PHP_SELF]'>");

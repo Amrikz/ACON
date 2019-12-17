@@ -224,6 +224,13 @@ content .container{
   font-size: 15px;
 }
 
+#homeAddInfo{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
 .videoPreview{
   width: 200px;
   height: 110px;
@@ -240,6 +247,10 @@ content .container{
   margin-top: 20px;
   margin-left: 15%;
   color: #4287f5;
+  max-width: 70%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
 
 #views{
@@ -250,10 +261,81 @@ content .container{
 
 #videoAccountbutton{
   margin-left: 15%;
+  max-width: 70%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
 }
 
 #videoAccountbutton button i{
   font-size: 20px;
+}
+
+#descriptiondiv{
+  max-width: 70%;
+  margin-left: 15%;
+  min-height: 80px;
+  background-color:  #313442;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  border-radius: 5px;
+  margin-top: 3px;
+  padding: 0px 5px;
+}
+
+#buttondiv{
+  max-width: 50%;
+  margin-left: 25%;
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+#ratevideo{
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.ratingButton{
+  width: 20px;
+  height: 20px;
+  color: yellow;
+  text-decoration: underline;
+  font-size: 20px;
+  cursor: pointer;
+  border: none;
+  background-color: #212431;
+}
+
+#commentdiv{
+  max-width: 70%;
+  margin-left: 15%;
+  min-height: 100px;
+}
+
+#leavecomment{
+  margin-left: 20%;
+}
+
+#leavecommentarea{
+  margin-left: 15%;
+  height: 10%;
+  min-width: 70%;
+  max-width: 70%;
+  background-color: #313442;
+  border: none;
+  margin-right: 15%;
+  color: white;
+  border-radius: 5px;
+  padding-left: 10px;
+}
+
+#OPISANIE{
+  margin-left: 15%;
+  display: block;
+  margin-top: 20px;
 }
 
 .error404{

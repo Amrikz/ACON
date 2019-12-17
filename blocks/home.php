@@ -2,12 +2,11 @@
 <form method="GET" action="account">
 <p id="flex_center"><?php accountButton(1); ?></p>
 </form>
-<!--<img src="https://psv4.userapi.com/c848236/u516262175/docs/d4/e9b81aa4bf49/c27626e51b8fc41db3d42c3743458c9a.gif?extra=yEwMlNoqJFCEwo3FmKz00vfQfXduR4BYMrg-pTMo5Cr2SwxHF5YuE_Ov9Prefolq-DozRHJ_cLeAwiNLIDVT6ViQCzaZrmIjsCEJnlaPZPfOlkRA4Mq3HNsID1qlWUPhP30JaC53f5ppJqiz2-166g&dl=1" width="100%">-->
 <h1 id='about'>Новое</h1>
 	<div class="videos">
 		<?php 
 		require "lib/db.php";
-		$query = "SELECT id,title,preview,creator,upload_date,views FROM `files` WHERE showing = 1 ORDER BY `files`.`upload_date` DESC LIMIT 10";
+		$query = "SELECT id,title,preview,creator,upload_date,views,middle_rating FROM `files` WHERE showing = 1 ORDER BY `files`.`upload_date` DESC LIMIT 10";
 		$data = mysqli_query($GLOBALS['dbc'],$query);
 		$info = mysqli_fetch_assoc($data);
 		while ($info) {
@@ -24,7 +23,7 @@
 	            <p>".accountButton($info['creator'])."</p>
 	            </form>
 	            <i id='homeViews'>Просмотры: ".$info['views']."</i>
-	            <h6 >Загружено: ".$info['upload_date']."</h6>
+	            <h6 id='homeAddInfo'>Загружено: ".$info['upload_date']."<i>".$info['middle_rating']."/10</i></h6>
 	        </div>";
 	        $info = mysqli_fetch_assoc($data);
 		}

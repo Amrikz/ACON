@@ -11,6 +11,7 @@ switch ($url) {
 	case 'home':
 		require 'blocks/home.php';
 		break;
+	//Забыли пароль? (Надеюсь когда-нибудь доделать)
 	/*case 'forgot':
 		require 'blocks/forgpass.php';
 		break;*/
