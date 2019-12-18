@@ -39,6 +39,7 @@
   elseif ($_POST['exit']) {
     session_unset();
     session_destroy();
+    echo "<meta http-equiv='refresh' content=0;>";
   }
   //Выход из аккаунта при его отсутсвии в базе данных
   elseif ($_SESSION['user_id']) {    

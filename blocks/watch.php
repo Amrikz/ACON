@@ -12,6 +12,25 @@
 		}
 
 
+//THRESH
+		if ($_POST['trash']) {
+			require "lib/db.php";
+			$query = "SELECT id FROM `comments` WHERE `id` = '$_POST[trash]' AND `user_id` = '$_SESSION[user_id]' LIMIT 1";
+			$data = mysqli_query($dbc,$query);
+      		$info = mysqli_fetch_assoc($data);
+			$role = level('',1);
+			if (($role <= 3 && $role != NULL) || ($info['id'] && $info['id'] != NULL)) {
+				$query = "DELETE FROM `comments` WHERE comments.id = '$info[id]'";
+				if (!mysqli_query($GLOBALS['dbc'],$query)) {
+					echo "Error:" . mysqli_error($GLOBALS['dbc']);
+				}
+			}
+			else{
+				echo "<p id='message'>Извините,что-то пошло не так</p>";
+			}
+		}
+
+
 //Счетчик просмотров
 		require "lib/db.php";
 		if (!$_POST['rating']) {
@@ -109,12 +128,11 @@
 			}
 		}
 
-//$query = "INSERT INTO `comments` (`id`, `file_id`, `user_id`, `text`, `time`) VALUES (NULL, '25', '10', 'Lox', '2019-12-18 15:42:00')";
 //Комментарии
 		if ($_POST['createComment']):
 			if ($_POST['comment']) {
 				$rawdate = date('c');
-				$date = substr($rawdate,0,10).' '.substr($rawdate,11);
+				$date = substr($rawdate,0,10).' '.substr($rawdate,11,8);
 				$query = "INSERT INTO `comments` (`id`, `file_id`, `user_id`, `text`, `time`) VALUES (NULL, ?, ?, ?, ?)";
 				$stmt = mysqli_prepare($GLOBALS['dbc'],$query);
 		    	mysqli_stmt_bind_param($stmt, 'iiss', $_GET['vid'], $_SESSION['user_id'], $_POST['comment'], $date);
@@ -148,6 +166,8 @@
 			mysqli_stmt_bind_result($stmt,$middle_rating);
 			mysqli_stmt_fetch($stmt);
 		}
+
+
 //Само видео
 		echo "
 		<video src=$location controls autoplay id='video'></video>
@@ -180,24 +200,49 @@
 	    	<?
 	    endif;
 	    echo "<div id='commentdiv'>";
-	    ?>
-	    <div id='exactComment'>
-	    	
-		</div>
-		<?
 	    //Комментарии
-		/*
 		   	require "lib/db.php";
 			$query = "SELECT * FROM `comments` WHERE file_id = '$_GET[vid]'";
 			$data = mysqli_query($GLOBALS['dbc'],$query);
 			$info = mysqli_fetch_assoc($data);
+			$count = 1;
 			while ($info) {
-				
-				if (!$info['preview'] || !file_exists($info['preview'])) {
-					$info['preview'] = "images\\vid_paceholder.jpg";
+				//Thrash button
+				$role = level('',1);
+				if (($role <= 3 && $role != NULL) || ($info['user_id'] == $_SESSION['user_id'])) {
+					$trashButton = "<form method='POST'><button id='trashButton' value=".$info['id']." name='trash'><i class='fas fa-trash-alt'></i></button></form>";
 				}
+				else {
+					$trashButton = NULL;
+				}
+				//Rating user
+				$query = "SELECT ratings.rating FROM ratings INNER JOIN comments ON comments.user_id = ratings.user_id WHERE comments.user_id = '$info[user_id]'";
+      			$rating_data = mysqli_query($dbc,$query);
+      			$rating_info = mysqli_fetch_assoc($rating_data);
+      			if ($rating_info['rating']) {
+      				$db_rating = $rating_info['rating']."/10";
+      			}
+      			else{
+      				$db_rating = NULL;
+      			}
+				?>
+
+				<div id='exactComment'>
+	    			<div id="commenthead">
+	    				<form method='GET' action='account'>
+	    					<?php echo"#$count"." $db_rating ".accountButton($info['user_id']);?>
+	    				</form>
+	    				<div id="head2"><?php echo $info['time'].$trashButton?></div>
+	    			</div>
+	    			<p id="commentText">
+	    				<?=$info['text']?>
+	    			</p>
+				</div>
+
+				<?php
+				$count++;
 				$info = mysqli_fetch_assoc($data);
-		*/
+			}
 	    echo"</div>";
 	}
 	else {

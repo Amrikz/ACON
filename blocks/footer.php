@@ -1,3 +1,4 @@
+                <div id='placeholder'></div>
             </div>
         </content>
     </div>
