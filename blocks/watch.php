@@ -110,6 +110,11 @@
 		}
 
 
+//Комментарии
+		if ($_POST['createComment']):
+
+		endif;
+
 //Проверки всякие
 		if (!$description) {
 			$description = "
@@ -153,14 +158,15 @@
 	    <p id='description'>$description</p>
 	    </div>
 	    <b id='OPISANIE'>Комментарии:</b>";
-	    if ($_SESSION['user_id']) {
-	    	echo "<p id='leavecomment'>Оставьте свой комментарий!</p>
+	    if ($_SESSION['user_id']): 
+	    	?>
+	    	<p id='leavecomment'>Оставьте свой комментарий!</p>
 	    	<form method='POST'>
 	    	<textarea id='leavecommentarea' name='comment'></textarea>
-	    	<button type='submit' name='create'>Написать</button>
+	    	<button type='submit' name='createComment' id='createComment'>Написать</button>
 	    	</form>
-	    	";
-	    }
+	    	<?
+	    endif;
 	    echo "<div id='commentdiv'>";
 	    
 	    //Комментарии
@@ -175,7 +181,8 @@
 					}
 					echo "";
 					$info = mysqli_fetch_assoc($data);
-		    }*/
+		    }
+		    */
 	    echo"</div>";
 	}
 	else {

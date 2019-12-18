@@ -203,7 +203,7 @@ content .container{
 .videos{
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: center;
 }
 
 .video{
@@ -330,6 +330,17 @@ content .container{
   color: white;
   border-radius: 5px;
   padding-left: 10px;
+}
+
+#createComment{
+  border: none;
+  height: 26px;
+  cursor: pointer;
+  background-color: #313442;
+  border-radius: 5px;
+  color: white;
+  margin: 0 auto;
+  display: block;
 }
 
 #OPISANIE{
