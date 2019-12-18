@@ -313,6 +313,7 @@ content .container{
   max-width: 70%;
   margin-left: 15%;
   min-height: 100px;
+  margin-top: 15px;
 }
 
 #leavecomment{
@@ -330,6 +331,7 @@ content .container{
   color: white;
   border-radius: 5px;
   padding-left: 10px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
 }
 
 #createComment{
@@ -341,6 +343,17 @@ content .container{
   color: white;
   margin: 0 auto;
   display: block;
+}
+
+#exactComment{
+  height: 100px;
+  min-width: 100%;
+  background-color: #313442;
+  border: none;
+  color: white;
+  border-radius: 5px;
+  padding-left: 10px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
 }
 
 #OPISANIE{

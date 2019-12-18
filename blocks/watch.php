@@ -109,10 +109,22 @@
 			}
 		}
 
-
+//$query = "INSERT INTO `comments` (`id`, `file_id`, `user_id`, `text`, `time`) VALUES (NULL, '25', '10', 'Lox', '2019-12-18 15:42:00')";
 //Комментарии
 		if ($_POST['createComment']):
-
+			if ($_POST['comment']) {
+				$rawdate = date('c');
+				$date = substr($rawdate,0,10).' '.substr($rawdate,11);
+				$query = "INSERT INTO `comments` (`id`, `file_id`, `user_id`, `text`, `time`) VALUES (NULL, ?, ?, ?, ?)";
+				$stmt = mysqli_prepare($GLOBALS['dbc'],$query);
+		    	mysqli_stmt_bind_param($stmt, 'iiss', $_GET['vid'], $_SESSION['user_id'], $_POST['comment'], $date);
+		    	if (!mysqli_stmt_execute($stmt)) {
+					echo "Error:" . mysqli_error($GLOBALS['dbc']);
+				}
+			}
+			else{
+				echo "<p id='message'>Извините,комментарий не может быть пустым</p>";
+			}
 		endif;
 
 //Проверки всякие
@@ -163,26 +175,29 @@
 	    	<p id='leavecomment'>Оставьте свой комментарий!</p>
 	    	<form method='POST'>
 	    	<textarea id='leavecommentarea' name='comment'></textarea>
-	    	<button type='submit' name='createComment' id='createComment'>Написать</button>
+	    	<button type='submit' name='createComment' id='createComment' value="1">Написать</button>
 	    	</form>
 	    	<?
 	    endif;
 	    echo "<div id='commentdiv'>";
-	    
+	    ?>
+	    <div id='exactComment'>
+	    	
+		</div>
+		<?
 	    //Комментарии
-		    /*foreach ($ as $key => $value) {
-		    	require "lib/db.php";
-				$query = "SELECT id,title,preview,creator,upload_date,views FROM `files` WHERE showing = 1 ORDER BY `files`.`upload_date` DESC LIMIT 10";
-				$data = mysqli_query($GLOBALS['dbc'],$query);
+		/*
+		   	require "lib/db.php";
+			$query = "SELECT * FROM `comments` WHERE file_id = '$_GET[vid]'";
+			$data = mysqli_query($GLOBALS['dbc'],$query);
+			$info = mysqli_fetch_assoc($data);
+			while ($info) {
+				
+				if (!$info['preview'] || !file_exists($info['preview'])) {
+					$info['preview'] = "images\\vid_paceholder.jpg";
+				}
 				$info = mysqli_fetch_assoc($data);
-				while ($info) {
-					if (!$info['preview'] || !file_exists($info['preview'])) {
-						$info['preview'] = "images\\vid_paceholder.jpg";
-					}
-					echo "";
-					$info = mysqli_fetch_assoc($data);
-		    }
-		    */
+		*/
 	    echo"</div>";
 	}
 	else {
