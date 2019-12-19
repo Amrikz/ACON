@@ -7,7 +7,11 @@
 		mysqli_stmt_bind_param($stmt, 'i', $_GET['vid']);
 		mysqli_stmt_execute($stmt);
 		mysqli_stmt_bind_result($stmt,$id,$title,$description,$location,$author,$main_genre,$creator,$upload_date,$views,$middle_rating,$showing);
-		if (!mysqli_stmt_fetch($stmt) || !$showing) {
+		$role = level('',1); (!$role <= 3 || $role != NULL);
+		if (!mysqli_stmt_fetch($stmt)) {
+			exit("<p class='user404'>Видео не доступно</p>");
+		}
+		elseif (!$showing && ($role >= 4 || $role == NULL)) {
 			exit("<p class='user404'>Видео не доступно</p>");
 		}
 
@@ -18,7 +22,6 @@
 			$query = "SELECT id FROM `comments` WHERE `id` = '$_POST[trash]' AND `user_id` = '$_SESSION[user_id]' LIMIT 1";
 			$data = mysqli_query($dbc,$query);
       		$info = mysqli_fetch_assoc($data);
-			$role = level('',1);
 			if (($role <= 3 && $role != NULL) || ($info['id'] && $info['id'] != NULL)) {
 				$query = "DELETE FROM `comments` WHERE comments.id = '$info[id]'";
 				if (!mysqli_query($GLOBALS['dbc'],$query)) {
