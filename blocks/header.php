@@ -23,9 +23,9 @@
       <div id=headWrapper>
              <a href="home" id=LOGO>ACON</a>
          <div class="links">
-              <a href="#" class="topLinks">Фильмы</a>
-              <a href="#" class="topLinks">Сериалы</a>
-              <a href="#" class="topLinks">Мультфильмы</a>
+              <a href="films" class="topLinks">Фильмы</a>
+              <a href="serials" class="topLinks">Сериалы</a>
+              <a href="mults" class="topLinks">Мультфильмы</a>
               <a href="#" class="topLinks">Помощь</a>
          </div>
          <!--Logging-->

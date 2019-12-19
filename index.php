@@ -18,6 +18,15 @@ switch ($url) {
 	case 'watch':
 		require 'blocks/watch.php';
 		break;
+	case 'films':
+		require 'blocks/film.php';
+		break;
+	case 'mults':
+		require 'blocks/mult.php';
+		break;
+	case 'serials':
+		require 'blocks/serial.php';
+		break;
 	case 'account':
 		require 'blocks/account.php';
 		break;

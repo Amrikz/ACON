@@ -30,6 +30,7 @@
 			}
 			else {
 				echo "Файл с именем '$filename' уже существует.\n";
+				echo "Файл загружен\n";
 				$upload = move_uploaded_file($_FILES["$key"]['tmp_name'], $dir.$filename);
 				$exist = 1;
 			}
@@ -46,7 +47,7 @@
 							echo "Загружаемый файл был получен только частично.\n";
 						}
 						elseif ($error == 4) {
-							echo "Файл не был загружен.\n";
+							echo "Файл $key не был загружен.\n";
 						}
 						elseif ($error == 6) {
 							echo "Отсутствует временная папка.\n";

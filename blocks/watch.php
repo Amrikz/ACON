@@ -170,6 +170,10 @@
 			mysqli_stmt_fetch($stmt);
 		}
 
+		if (!$middle_rating) {
+			$middle_rating = "Не оценено";
+		}
+
 
 //Само видео
 		echo "

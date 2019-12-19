@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Дек 19 2019 г., 01:21
+-- Время создания: Дек 20 2019 г., 00:18
 -- Версия сервера: 10.3.13-MariaDB-log
 -- Версия PHP: 7.3.9
 
@@ -42,7 +42,8 @@ CREATE TABLE `comments` (
 --
 
 INSERT INTO `comments` (`id`, `file_id`, `user_id`, `text`, `time`, `reply`) VALUES
-(2, 25, 1, 'da', '2019-12-18 13:30:14', 0);
+(2, 25, 1, 'da', '2019-12-18 13:30:14', 0),
+(9, 25, 10, 'А где видео???? ДИЗЛайк!', '2019-12-19 12:41:20', 0);
 
 -- --------------------------------------------------------
 
@@ -76,8 +77,12 @@ INSERT INTO `files` (`id`, `title`, `description`, `preview`, `location`, `autho
 (15, 'ПРОКСИМА ЦЕНТАВРА', 'Планета', 'users\\rikz\\maxresdefault.jpg', 'C:\\OSPanel\\domains\\ACON\\lib\\..\\users\\rikz\\fes.html', '', 1, 1, '2019-12-14', 7, 0, 1, 0),
 (16, 'THE BEST GRADUATES', '', 'users\\rikz\\kakashi.png', 'C:\\OSPanel\\domains\\ACON\\lib\\..\\users\\rikz\\depositphotos_139632918-stock-illustration-blank-comic-speech-cloud-bubble.jpg', 'GFIJK YF{EQ', 1, 1, '2019-12-14', 6, 0, 1, 0),
 (17, 'ASSAS', '', 'users\\rikz\\13.png', 'C:\\OSPanel\\domains\\ACON\\lib\\..\\users\\rikz\\тест.docx', 'SSS', 1, 1, '2019-12-14', 5, 0, 1, 0),
-(22, 'Telefon', '', 'users\\admin\\OH_MY.png', 'C:\\OSPanel\\domains\\ACON\\lib\\..\\users\\admin\\a2d82c8f85808639928e93a0aa85a866.480.mp4', '', 1, 11, '2019-12-15', 24, 1, 1, 0),
-(25, 'AAEEEEE', '', 'users\\admin\\Blyat(.png', 'users\\admin\\a2d82c8f85808639928e93a0aa85a866.480.mp4', '', 1, 11, '2019-12-15', 293, 4.3, 1, 0);
+(22, 'Telefon', '', 'users\\admin\\OH_MY.png', 'C:\\OSPanel\\domains\\ACON\\lib\\..\\users\\admin\\a2d82c8f85808639928e93a0aa85a866.480.mp4', '', 1, 11, '2019-12-15', 25, 1, 1, 0),
+(25, 'AAEEEEE', '', 'users\\admin\\Blyat(.png', 'users\\admin\\a2d82c8f85808639928e93a0aa85a866.480.mp4', '', 1, 11, '2019-12-15', 300, 3.5, 1, 0),
+(34, 'Telefon', '', NULL, 'users\\rikz\\8d77f1c5fd595f3c38ed6c137e674467480.mp4', '', 2, 1, '2019-12-19', 0, 0, 1, 0),
+(36, 'ф', 'MULT', 'users\\rikz\\Запомни!.png', 'users\\rikz\\8d77f1c5fd595f3c38ed6c137e674467480.mp4', 'aaa', 3, 1, '2019-12-19', 2, 0, 1, 0),
+(37, 'MuuuuuuuuuuuuuuuuuuuLT', '', 'users\\rikz\\КОТЭЭ.bmp', 'users\\rikz\\8d77f1c5fd595f3c38ed6c137e674467480.mp4', '', 3, 1, '2019-12-19', 0, 0, 1, 0),
+(38, 'FUUFF', 'NUR SULTAN 1 LVL', 'users\\rikz\\НУР-СУЛТАН_1-го_УРОВНЯ.png', 'users\\rikz\\8d77f1c5fd595f3c38ed6c137e674467480.mp4', '', 3, 1, '2019-12-19', 1, 0, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -133,7 +138,8 @@ INSERT INTO `ratings` (`id`, `video_id`, `user_id`, `rating`) VALUES
 (4, 25, 11, 1),
 (5, 25, 9, 10),
 (6, 25, 1, 2),
-(7, 22, 1, 1);
+(7, 22, 1, 1),
+(8, 25, 10, 1);
 
 -- --------------------------------------------------------
 
@@ -234,13 +240,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT для таблицы `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `id` int(15) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(15) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT для таблицы `files`
 --
 ALTER TABLE `files`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT для таблицы `genres`
@@ -258,7 +264,7 @@ ALTER TABLE `genre_association`
 -- AUTO_INCREMENT для таблицы `ratings`
 --
 ALTER TABLE `ratings`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT для таблицы `roles`

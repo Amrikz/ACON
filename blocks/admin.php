@@ -31,11 +31,11 @@
 				switch ($option) {
 				 	case 'add':
 				 		$date = date('o').'-'.date('n').'-'.date('j');
-				 		if ($_POST['title'] && $_FILES["video"]['fin_Upl_Dir'] && ($_POST['show'] == '0' || $_POST['show'] == '1')) {
+				 		if ($_POST['title'] && $_FILES["video"]['fin_Upl_Dir'] && ($_POST['show'] == '0' || $_POST['show'] == '1') && ($_POST['maingenre'] >= 1 && $_POST['maingenre'] <= 3)) {
 				 			require "lib/db.php";
-							$query = "INSERT INTO `files` (`id`, `title`, `description`, `preview`, `location`, `author`, `main_genre`, `creator`, `upload_date`, `views`, `showing`, `moderating`) VALUES (NULL, ?, ?, ? , ?, ?, '1' , ?, ?, '0', ?, '0')";
+							$query = "INSERT INTO `files` (`id`, `title`, `description`, `preview`, `location`, `author`, `main_genre`, `creator`, `upload_date`, `views`, `showing`, `moderating`) VALUES (NULL, ?, ?, ? , ?, ?, ? , ?, ?, '0', ?, '0')";
 						    $stmt = mysqli_prepare($GLOBALS['dbc'],$query);
-						    mysqli_stmt_bind_param($stmt, 'sssssisi', $_POST['title'], $_POST['description'], $_FILES["preview"]['fin_Upl_Dir'], $_FILES["video"]['fin_Upl_Dir'], $_POST['author'], $_SESSION['user_id'], $date, $_POST['show']);
+						    mysqli_stmt_bind_param($stmt, 'sssssiisi', $_POST['title'], $_POST['description'], $_FILES["preview"]['fin_Upl_Dir'], $_FILES["video"]['fin_Upl_Dir'], $_POST['author'], $_POST['maingenre'], $_SESSION['user_id'], $date, $_POST['show']);
 						    /*var_dump($_POST['title']);
 						    echo "<br>";
 						    var_dump($_POST['description']);
@@ -53,7 +53,10 @@
 						    if (!mysqli_stmt_execute($stmt)) {
 				      			echo "Error:" . mysqli_error($GLOBALS['dbc']);
 				      		}						
-
+ 
+						}
+						elseif ($_POST['title'] || $_FILES["video"]['fin_Upl_Dir'] || $_POST['maingenre']) {
+							echo "<p id='message'>Не заполнены все необходимые поля</p>";
 						}
 
 						?>
@@ -75,7 +78,27 @@
 						<input type="radio" name="show" class="adminRadio" value="0" >
 						<label >Не показывать</label>
 						</div>
-				    	<input type="submit" name="submit" value="Создать видео" />
+						<div>
+							<?php
+							require "lib/db.php";
+							$query = "SELECT * FROM `genres` LIMIT 3";
+							$data = mysqli_query($GLOBALS['dbc'],$query);
+							$info = mysqli_fetch_assoc($data);
+							$info['id'] = $info['id']." checked";
+							//var_dump($info);
+							while ($info) {
+								echo "<input type='radio' name='maingenre' class='adminGenreRadio' value=".$info['id'].">
+								<label class='adminGenreRadioLabel'>".$info['genre']."</label>";
+								$info = mysqli_fetch_assoc($data);
+							}
+							?>
+						</div>
+						<div id="checkboxes">
+							<?php
+
+							?>
+						</div>
+				    	<input type="submit" name="submit" value="Создать видео" id="makeVideoButton" />
 						</form>
 						<?php
 				 		break;
