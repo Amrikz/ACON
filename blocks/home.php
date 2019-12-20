@@ -39,6 +39,12 @@ function draw_video($query = 0) {
 		<?php 
 		$query = "SELECT id,title,preview,creator,upload_date,views,middle_rating FROM `files` WHERE showing = 1 ORDER BY `files`.`upload_date` DESC LIMIT 10";
 		draw_video($query);
+		echo "<h1 id='about'>Самый высокий рейтинг</h1>";
+		$query = "SELECT id,title,preview,creator,upload_date,views,middle_rating FROM `files` WHERE showing = 1 ORDER BY `files`.`middle_rating` DESC LIMIT 10";
+		draw_video($query);
+		echo "<h1 id='about'>По просмотрам</h1>";
+		$query = "SELECT id,title,preview,creator,upload_date,views,middle_rating FROM `files` WHERE showing = 1 ORDER BY `files`.`views` DESC";
+		draw_video($query);
 		?>
 	</div>
 <?php
