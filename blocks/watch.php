@@ -54,6 +54,31 @@
 
 
 //Система рейтингов
+		//Система обновления рейтинга в бд
+function updateRating () {
+	require "lib/db.php";
+	$query = "SELECT rating FROM `ratings` WHERE video_id = '$_GET[vid]'";
+	$data = mysqli_query($dbc,$query);
+	$info = mysqli_fetch_assoc($data);
+	//var_dump($info);
+	while ($info) {
+		$totalRating += $info['rating'];
+		$count++;
+		$info = mysqli_fetch_assoc($data);
+		//var_dump($info);
+	}
+	$rating = $totalRating/$count;
+	if ($rating) {
+		$rating = round($rating, 1); 
+		//var_dump($rating);
+		$query = "UPDATE `files` SET `middle_rating` = '$rating' WHERE `files`.`id`='$_GET[vid]'";
+		mysqli_query($dbc,$query);
+	}
+	echo "<p id='about'>Спасибо за оценку!</p>";
+}
+
+
+
 		if ($_POST['rating']) {
 			require "lib/db.php";
 			if ($_POST['rating'] > 0 && $_POST['rating'] <= 10) {
@@ -69,26 +94,8 @@
 	      				if (!mysqli_stmt_execute($stmt)) {
 					      	echo "Error:" . mysqli_error($GLOBALS['dbc']);
 					    }
-					     else {
-					     	//Система обновления рейтинга в бд
-					    	$query = "SELECT rating FROM `ratings` WHERE video_id = '$_GET[vid]'";
-							$data = mysqli_query($GLOBALS['dbc'],$query);
-							$info = mysqli_fetch_assoc($data);
-							//var_dump($info);
-							while ($info) {
-								$totalRating += $info['rating'];
-								$count++;
-								$info = mysqli_fetch_assoc($data);
-								//var_dump($info);
-							}
-							$rating = $totalRating/$count;
-							if ($rating) {
-								$rating = round($rating, 1); 
-								//var_dump($rating);
-								$query = "UPDATE `files` SET `middle_rating` = '$rating' WHERE `files`.`id`='$_GET[vid]'";
-								mysqli_query($GLOBALS['dbc'],$query);
-							}
-					    	echo "<p id='about'>Спасибо за оценку!</p>";
+					    else {
+					     	updateRating();
 					    }
 	      			}
 	      			elseif ($_POST['rating'] != $info['rating']) {
@@ -223,8 +230,8 @@
 					$trashButton = NULL;
 				}
 				//Rating user
-				$query = "SELECT ratings.rating FROM ratings INNER JOIN comments ON comments.user_id = ratings.user_id WHERE comments.user_id = '$info[user_id]'";
-      			$rating_data = mysqli_query($dbc,$query);
+				$query = "SELECT ratings.rating FROM ratings INNER JOIN comments ON comments.user_id = ratings.user_id AND ratings.video_id = '$_GET[vid]' WHERE comments.user_id = '$info[user_id]'";
+      			$rating_data = mysqli_query($GLOBALS['dbc'],$query);
       			$rating_info = mysqli_fetch_assoc($rating_data);
       			if ($rating_info['rating']) {
       				$db_rating = $rating_info['rating']."/10";

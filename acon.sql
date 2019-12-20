@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.7
+-- version 4.9.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Дек 20 2019 г., 16:14
--- Версия сервера: 5.6.38
--- Версия PHP: 5.5.38
+-- Время создания: Дек 21 2019 г., 01:13
+-- Версия сервера: 10.3.13-MariaDB-log
+-- Версия PHP: 7.3.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -34,7 +34,7 @@ CREATE TABLE `comments` (
   `user_id` int(11) NOT NULL,
   `text` text NOT NULL,
   `time` timestamp NOT NULL,
-  `reply` int(15) UNSIGNED DEFAULT '0'
+  `reply` int(15) UNSIGNED DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -54,15 +54,15 @@ INSERT INTO `comments` (`id`, `file_id`, `user_id`, `text`, `time`, `reply`) VAL
 CREATE TABLE `files` (
   `id` int(11) UNSIGNED NOT NULL,
   `title` varchar(250) NOT NULL,
-  `description` text,
+  `description` text DEFAULT NULL,
   `preview` varchar(500) DEFAULT NULL,
   `location` varchar(500) NOT NULL,
   `author` varchar(200) DEFAULT NULL,
-  `main_genre` int(11) UNSIGNED NOT NULL DEFAULT '1',
+  `main_genre` int(11) UNSIGNED NOT NULL DEFAULT 1,
   `creator` int(11) UNSIGNED NOT NULL,
   `upload_date` date NOT NULL,
   `views` int(15) UNSIGNED DEFAULT NULL,
-  `middle_rating` float UNSIGNED NOT NULL DEFAULT '0',
+  `middle_rating` float UNSIGNED NOT NULL DEFAULT 0,
   `showing` int(10) UNSIGNED NOT NULL,
   `moderating` int(11) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -82,7 +82,8 @@ INSERT INTO `files` (`id`, `title`, `description`, `preview`, `location`, `autho
 (34, 'Telefon', '', NULL, 'users\\rikz\\8d77f1c5fd595f3c38ed6c137e674467480.mp4', '', 2, 1, '2019-12-19', 1, 0, 1, 0),
 (36, 'ф', 'MULT', 'users\\rikz\\Запомни!.png', 'users\\rikz\\8d77f1c5fd595f3c38ed6c137e674467480.mp4', 'aaa', 3, 1, '2019-12-19', 2, 0, 1, 0),
 (37, 'MuuuuuuuuuuuuuuuuuuuLT', '', 'users\\rikz\\КОТЭЭ.bmp', 'users\\rikz\\8d77f1c5fd595f3c38ed6c137e674467480.mp4', '', 3, 1, '2019-12-19', 0, 0, 1, 0),
-(38, 'FUUFF', 'NUR SULTAN 1 LVL', 'users\\rikz\\НУР-СУЛТАН_1-го_УРОВНЯ.png', 'users\\rikz\\8d77f1c5fd595f3c38ed6c137e674467480.mp4', '', 3, 1, '2019-12-19', 1, 0, 1, 0);
+(38, 'FUUFF', 'NUR SULTAN 1 LVL', 'users\\rikz\\НУР-СУЛТАН_1-го_УРОВНЯ.png', 'users\\rikz\\8d77f1c5fd595f3c38ed6c137e674467480.mp4', '', 3, 1, '2019-12-19', 1, 0, 1, 0),
+(54, 'HiddenShrek', 'OH HELLO THERE', 'users\\rikz\\670431fd09d738afdf3388cde211281c.jpg', 'users\\rikz\\8d77f1c5fd595f3c38ed6c137e674467480.mp4', 'Shrekspeare', 3, 1, '2019-12-20', 1, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -134,6 +135,15 @@ CREATE TABLE `genre_association` (
   `genre_id` int(11) UNSIGNED NOT NULL,
   `video_id` int(11) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `genre_association`
+--
+
+INSERT INTO `genre_association` (`id`, `genre_id`, `video_id`) VALUES
+(10, 5, 54),
+(11, 9, 54),
+(12, 14, 54);
 
 -- --------------------------------------------------------
 
@@ -192,7 +202,7 @@ CREATE TABLE `users` (
   `username` varchar(60) NOT NULL,
   `password` varchar(150) NOT NULL,
   `email` varchar(150) NOT NULL,
-  `role` int(10) NOT NULL DEFAULT '4'
+  `role` int(10) NOT NULL DEFAULT 4
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -265,7 +275,7 @@ ALTER TABLE `comments`
 -- AUTO_INCREMENT для таблицы `files`
 --
 ALTER TABLE `files`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
 
 --
 -- AUTO_INCREMENT для таблицы `genres`
@@ -277,7 +287,7 @@ ALTER TABLE `genres`
 -- AUTO_INCREMENT для таблицы `genre_association`
 --
 ALTER TABLE `genre_association`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT для таблицы `ratings`
