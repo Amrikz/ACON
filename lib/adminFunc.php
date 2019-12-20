@@ -60,7 +60,7 @@
 						}
 					}
 				    if (!$_FILES['preview']['tmp_name'] && $_FILES['preview'] && !$exist) {
-				    	echo "Файл preview не выбран\n";
+				    	#echo "Файл preview не выбран\n";
 				    }
 				    elseif (!$exist) {
 				    	echo "Ошибка при загрузке,проверьте правильность пути.\n";

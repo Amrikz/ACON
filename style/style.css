@@ -512,6 +512,24 @@ footer #LOGO{
   margin-right: 10px;
 }
 
+#checkboxes{
+  margin-top: 10px;
+  max-width: 70%;
+  display: flex;
+  flex-flow: wrap;
+  align-items: center;
+  justify-content: center;  
+}
+
+#checkBoxDiv{
+  width: 200px;
+  height: 30px;
+}
+
+.adminGenreCheckbox{
+  margin-left: 10px;
+}
+
 .videomake{
   display: flex;
   justify-content: center;
@@ -610,12 +628,3 @@ footer #LOGO{
   display: flex;
   justify-content: center;
 }
-
-
-
-
-
-
-
-
-

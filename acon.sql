@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.0.1
+-- version 4.7.7
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Дек 20 2019 г., 00:18
--- Версия сервера: 10.3.13-MariaDB-log
--- Версия PHP: 7.3.9
+-- Время создания: Дек 20 2019 г., 16:14
+-- Версия сервера: 5.6.38
+-- Версия PHP: 5.5.38
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -34,7 +34,7 @@ CREATE TABLE `comments` (
   `user_id` int(11) NOT NULL,
   `text` text NOT NULL,
   `time` timestamp NOT NULL,
-  `reply` int(15) UNSIGNED DEFAULT 0
+  `reply` int(15) UNSIGNED DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -54,15 +54,15 @@ INSERT INTO `comments` (`id`, `file_id`, `user_id`, `text`, `time`, `reply`) VAL
 CREATE TABLE `files` (
   `id` int(11) UNSIGNED NOT NULL,
   `title` varchar(250) NOT NULL,
-  `description` text DEFAULT NULL,
+  `description` text,
   `preview` varchar(500) DEFAULT NULL,
   `location` varchar(500) NOT NULL,
   `author` varchar(200) DEFAULT NULL,
-  `main_genre` int(11) UNSIGNED NOT NULL DEFAULT 1,
+  `main_genre` int(11) UNSIGNED NOT NULL DEFAULT '1',
   `creator` int(11) UNSIGNED NOT NULL,
   `upload_date` date NOT NULL,
   `views` int(15) UNSIGNED DEFAULT NULL,
-  `middle_rating` float UNSIGNED NOT NULL DEFAULT 0,
+  `middle_rating` float UNSIGNED NOT NULL DEFAULT '0',
   `showing` int(10) UNSIGNED NOT NULL,
   `moderating` int(11) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -79,7 +79,7 @@ INSERT INTO `files` (`id`, `title`, `description`, `preview`, `location`, `autho
 (17, 'ASSAS', '', 'users\\rikz\\13.png', 'C:\\OSPanel\\domains\\ACON\\lib\\..\\users\\rikz\\тест.docx', 'SSS', 1, 1, '2019-12-14', 5, 0, 1, 0),
 (22, 'Telefon', '', 'users\\admin\\OH_MY.png', 'C:\\OSPanel\\domains\\ACON\\lib\\..\\users\\admin\\a2d82c8f85808639928e93a0aa85a866.480.mp4', '', 1, 11, '2019-12-15', 25, 1, 1, 0),
 (25, 'AAEEEEE', '', 'users\\admin\\Blyat(.png', 'users\\admin\\a2d82c8f85808639928e93a0aa85a866.480.mp4', '', 1, 11, '2019-12-15', 300, 3.5, 1, 0),
-(34, 'Telefon', '', NULL, 'users\\rikz\\8d77f1c5fd595f3c38ed6c137e674467480.mp4', '', 2, 1, '2019-12-19', 0, 0, 1, 0),
+(34, 'Telefon', '', NULL, 'users\\rikz\\8d77f1c5fd595f3c38ed6c137e674467480.mp4', '', 2, 1, '2019-12-19', 1, 0, 1, 0),
 (36, 'ф', 'MULT', 'users\\rikz\\Запомни!.png', 'users\\rikz\\8d77f1c5fd595f3c38ed6c137e674467480.mp4', 'aaa', 3, 1, '2019-12-19', 2, 0, 1, 0),
 (37, 'MuuuuuuuuuuuuuuuuuuuLT', '', 'users\\rikz\\КОТЭЭ.bmp', 'users\\rikz\\8d77f1c5fd595f3c38ed6c137e674467480.mp4', '', 3, 1, '2019-12-19', 0, 0, 1, 0),
 (38, 'FUUFF', 'NUR SULTAN 1 LVL', 'users\\rikz\\НУР-СУЛТАН_1-го_УРОВНЯ.png', 'users\\rikz\\8d77f1c5fd595f3c38ed6c137e674467480.mp4', '', 3, 1, '2019-12-19', 1, 0, 1, 0);
@@ -102,7 +102,26 @@ CREATE TABLE `genres` (
 INSERT INTO `genres` (`id`, `genre`) VALUES
 (1, 'Фильмы'),
 (2, 'Сериалы'),
-(3, 'Мультфильмы');
+(3, 'Мультфильмы'),
+(4, 'Артхаус'),
+(5, 'Боевики'),
+(6, 'Военные'),
+(7, 'Детективы'),
+(8, 'Для всей семьи\r\n'),
+(9, 'Для детей'),
+(10, 'Документальные'),
+(11, 'Драмы'),
+(12, 'Исторические\r\n'),
+(13, 'Комедии'),
+(14, 'Криминальные'),
+(15, 'Мелодрамы\r\n'),
+(16, 'Мистические'),
+(17, 'Приключения\r\n'),
+(18, 'Фильмы-катастрофы'),
+(19, 'Триллеры'),
+(20, 'Ужасы'),
+(21, 'Фантастика'),
+(22, 'Фэнтези');
 
 -- --------------------------------------------------------
 
@@ -173,7 +192,7 @@ CREATE TABLE `users` (
   `username` varchar(60) NOT NULL,
   `password` varchar(150) NOT NULL,
   `email` varchar(150) NOT NULL,
-  `role` int(10) NOT NULL DEFAULT 4
+  `role` int(10) NOT NULL DEFAULT '4'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -246,19 +265,19 @@ ALTER TABLE `comments`
 -- AUTO_INCREMENT для таблицы `files`
 --
 ALTER TABLE `files`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 
 --
 -- AUTO_INCREMENT для таблицы `genres`
 --
 ALTER TABLE `genres`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT для таблицы `genre_association`
 --
 ALTER TABLE `genre_association`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT для таблицы `ratings`

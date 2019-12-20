@@ -52,8 +52,29 @@
 						    echo "<br>";*/
 						    if (!mysqli_stmt_execute($stmt)) {
 				      			echo "Error:" . mysqli_error($GLOBALS['dbc']);
-				      		}						
- 
+				      		}
+				      		//Жанры						
+ 							elseif ($_POST['genre']) {
+ 								$video_id = mysqli_stmt_insert_id($stmt);
+ 								foreach ($_POST['genre'] as $key => $value) {
+ 									require "lib/db.php";
+ 									$query = "SELECT id FROM `genres` WHERE id = ?";
+ 									$stmt = mysqli_prepare($dbc,$query);
+						    		mysqli_stmt_bind_param($stmt, 'i', $value);
+						    		if (!mysqli_stmt_execute($stmt)) {
+				      					echo "Error:" . mysqli_error($GLOBALS['dbc']);
+				      				}
+				      				else {
+				      					mysqli_stmt_bind_result($stmt,$id);
+				      					mysqli_stmt_fetch($stmt);
+				      					if ($id) {
+				      						$query = "INSERT INTO `genre_association` (`id`, `genre_id`, `video_id`) VALUES (NULL, $id, '$video_id')";
+				      						require "lib/db.php";
+				      						mysqli_query($dbc,$query);
+				      					}				      					
+				      				}
+ 								}
+ 							}
 						}
 						elseif ($_POST['title'] || $_FILES["video"]['fin_Upl_Dir'] || $_POST['maingenre']) {
 							echo "<p id='message'>Не заполнены все необходимые поля</p>";
@@ -63,13 +84,13 @@
 						<form enctype="multipart/form-data"  method="POST" class="videomake">
 						<input type="hidden" name="MAX_FILE_SIZE" value="50000000" />
 						<label class="registrationLabels">Название видео</label>
-						<input type="text" name="title" placeholder="..." class="registrationInputs" maxlength=200 required>
+						<input type="text" name="title" placeholder="..." class="registrationInputs" maxlength=200 > <!--required-->
 						<label class="registrationLabels" >Описание видео</label>
 				    	<textarea name="description" cols ="50" class="adminTextarea"></textarea>
 				    	<label class="registrationLabels">Превью</label>
 				    	<input name="preview" type="file" />
 				    	<label class="registrationLabels">Видео</label>
-				    	<input name="video" type="file" required/>
+				    	<input name="video" type="file" /> <!--required-->
 				    	<label class="registrationLabels">Автор</label>
 						<input type="text" name="author" placeholder="..." class="registrationInputs" maxlength=150>
 						<div>
@@ -95,7 +116,22 @@
 						</div>
 						<div id="checkboxes">
 							<?php
-
+							require "lib/db.php";
+							$query = "SELECT * FROM `genres`";
+							$data = mysqli_query($GLOBALS['dbc'],$query);
+							$info = mysqli_fetch_assoc($data);
+							$info['id'] = $info['id']." checked";
+							$count = 0;
+							while ($info) {
+								$count++;
+								if ($count > 3) {
+									echo "<div id='checkBoxDiv'>";
+									echo "<input type='checkbox' name='genre[]' class='adminGenreCheckbox' value=".$info['id'].">
+									<label class='adminGenreCheckboxLabel'>".$info['genre']."</label>";
+									echo "</div>";
+								}
+								$info = mysqli_fetch_assoc($data);
+							}
 							?>
 						</div>
 				    	<input type="submit" name="submit" value="Создать видео" id="makeVideoButton" />
