@@ -62,7 +62,7 @@
 	}
 echo "<h1 id='about'>Видео пользователя:</h1>";
 	if ($_SESSION['guest'] == 0) {
-		$query = "SELECT id,title,preview,creator,upload_date,views,middle_rating FROM `files` WHERE creator = '$_SESSION[user_id]' ORDER BY `files`.`upload_date` DESC ";
+		$query = "SELECT id,title,preview,creator,upload_date,views,middle_rating,showing FROM `files` WHERE creator = '$_SESSION[user_id]' ORDER BY `files`.`upload_date` DESC ";
 		draw_video($query);
 	}
 	elseif ($_SESSION['guest'] == 1) {

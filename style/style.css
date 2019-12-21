@@ -275,6 +275,22 @@ content .container{
   font-size: 20px;
 }
 
+#videoGenresDiv{
+  display: flex;
+  max-width: 70%;
+  margin-left: 15%;
+  flex-flow: wrap;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.subgenre{
+  margin: 0 auto;
+  margin-top: 10px;
+  color: mediumslateblue;
+}
+
 #descriptiondiv{
   max-width: 70%;
   margin-left: 15%;

@@ -104,25 +104,7 @@ function updateRating () {
 					      	echo "Error:" . mysqli_error($GLOBALS['dbc']);
 					    }
 					    else {
-					    	//Система обновления рейтинга в бд
-					    	$query = "SELECT rating FROM `ratings` WHERE video_id = '$_GET[vid]'";
-							$data = mysqli_query($GLOBALS['dbc'],$query);
-							$info = mysqli_fetch_assoc($data);
-							//var_dump($info);
-							while ($info) {
-								$totalRating += $info['rating'];
-								$count++;
-								$info = mysqli_fetch_assoc($data);
-								//var_dump($info);
-							}
-							$rating = $totalRating/$count;
-							if ($rating) {
-								$rating = round($rating, 1); 
-								//var_dump($rating);
-								$query = "UPDATE `files` SET `middle_rating` = '$rating' WHERE `files`.`id`='$_GET[vid]'";
-								mysqli_query($GLOBALS['dbc'],$query);
-							}
-					    	echo "<p id='about'>Спасибо за оценку!</p>";
+					    	updateRating();
 					    }
 	      			}
 	      			else {
@@ -137,6 +119,23 @@ function updateRating () {
 				echo "<p id='message'>Извините,что-то пошло не так</p>";
 			}
 		}
+
+
+//ПОДЖанры
+		$query = "SELECT genre_id FROM `genre_association` WHERE `video_id` = '$_GET[vid]'";
+		$data = mysqli_query($GLOBALS['dbc'],$query);
+  		$info = mysqli_fetch_assoc($data);
+  		if ($info) {
+  			$GENRES = "<div id='videoGenresDiv'>";
+  			while ($info) {
+  				$genre_query = "SELECT genre FROM `genres` WHERE id = '$info[genre_id]'";
+				$genre_data = mysqli_query($GLOBALS['dbc'],$genre_query);
+  				$fetchedGenre = mysqli_fetch_assoc($genre_data);
+  				$GENRES = $GENRES."<p class='subgenre'> #".$fetchedGenre['genre']."</p>";
+  				$info = mysqli_fetch_assoc($data);
+  			}
+  			$GENRES = $GENRES."</div>";
+  		}
 
 //Комментарии
 		if ($_POST['createComment']):
@@ -189,6 +188,7 @@ function updateRating () {
 		<form method='GET' action='account'>
 	        <p id='videoAccountbutton'>".accountButton($creator)."<i id='views'>$middle_rating/10 - Средний рейтинг</i></p>
 	    </form>
+	    ".$GENRES."
 	    <form method='POST'>
 	    <p id='ratevideo'>Оцените видеоролик:</p>
 	    <div id='buttondiv'>";

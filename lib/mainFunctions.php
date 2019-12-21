@@ -96,22 +96,6 @@
       return $user;
     }
   }
-
-
-  /*function idByName($name = 0) {
-    if (!$name) {
-      return;
-    }
-    else {
-      $query = "SELECT username FROM `users` WHERE id = ? LIMIT 1";
-      $stmt = mysqli_prepare($GLOBALS['dbc'],$query);
-      mysqli_stmt_bind_param($stmt,'i', $id);
-      mysqli_stmt_execute($stmt);
-      mysqli_stmt_bind_result($stmt,$user);
-      mysqli_stmt_fetch($stmt);
-      return $user;
-    }
-  }*/
   
 
   function accountButton($id,$text = '') {
@@ -132,8 +116,16 @@
 				if (!$info['middle_rating']) {
 					$info['middle_rating'] = "Не оценено";
 				}
+
+        if ($info['showing'] == 0 && $info['showing'] != NULL) {
+          echo "
+            <div class='video' style='border: 3px #615f57 solid;'>";
+        }
+        else{
+          echo "
+            <div class='video'>";
+        }
 				echo "
-		        <div class='video'>
 		        	<form method='GET' action='watch'>
 		            <button class='videoButton' name='vid' value=".$info['id']."><img class='videoPreview' src=".$info['preview'].">
 		            <h5>".$info['title']."</h5>
