@@ -30,7 +30,7 @@
 			}
 			else {
 				echo "Файл с именем '$filename' уже существует.\n";
-				echo "Файл загружен\n";
+				echo "Файл перезаписан\n";
 				$upload = move_uploaded_file($_FILES["$key"]['tmp_name'], $dir.$filename);
 				$exist = 1;
 			}

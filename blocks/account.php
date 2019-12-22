@@ -57,16 +57,22 @@
 		}
 		else {
 			echo "<p id='Mondiator'>".$role."</p>";
-		}
-		
+		}	
 	}
+//Костыль,сори,переделывать долго
+$role = level('',1);
 echo "<h1 id='about'>Видео пользователя:</h1>";
 	if ($_SESSION['guest'] == 0) {
-		$query = "SELECT id,title,preview,creator,upload_date,views,middle_rating,showing FROM `files` WHERE creator = '$_SESSION[user_id]' ORDER BY `files`.`upload_date` DESC ";
-		draw_video($query);
+		echo "<a href='videoadd'><p id='about' style='font-size: 35px;'>Добавить видео</p></a>";
+		$query = "SELECT * FROM `files` WHERE creator = '$_SESSION[user_id]' ORDER BY `files`.`upload_date` DESC ";
+		draw_video($query,1);
+	}
+	elseif ($_SESSION['guest'] == 1 && ($role <= 3 && $role != NULL)) {
+		$query = "SELECT * FROM `files` WHERE creator = '$_GET[user_link]' ORDER BY `files`.`upload_date` DESC ";
+		draw_video($query,1);
 	}
 	elseif ($_SESSION['guest'] == 1) {
-		$query = "SELECT id,title,preview,creator,upload_date,views,middle_rating FROM `files` WHERE showing = 1 AND creator = '$_GET[user_link]' ORDER BY `files`.`upload_date` DESC ";
-		draw_video($query);
+		$query = "SELECT * FROM `files` WHERE showing = 1 AND creator = '$_GET[user_link]' ORDER BY `files`.`upload_date` DESC ";
+		draw_video($query,0);
 	}
 ?>

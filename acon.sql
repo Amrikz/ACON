@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Дек 21 2019 г., 01:13
+-- Время создания: Дек 23 2019 г., 00:35
 -- Версия сервера: 10.3.13-MariaDB-log
 -- Версия PHP: 7.3.9
 
@@ -81,9 +81,12 @@ INSERT INTO `files` (`id`, `title`, `description`, `preview`, `location`, `autho
 (25, 'AAEEEEE', '', 'users\\admin\\Blyat(.png', 'users\\admin\\a2d82c8f85808639928e93a0aa85a866.480.mp4', '', 1, 11, '2019-12-15', 300, 3.5, 1, 0),
 (34, 'Telefon', '', NULL, 'users\\rikz\\8d77f1c5fd595f3c38ed6c137e674467480.mp4', '', 2, 1, '2019-12-19', 1, 0, 1, 0),
 (36, 'ф', 'MULT', 'users\\rikz\\Запомни!.png', 'users\\rikz\\8d77f1c5fd595f3c38ed6c137e674467480.mp4', 'aaa', 3, 1, '2019-12-19', 2, 0, 1, 0),
-(37, 'MuuuuuuuuuuuuuuuuuuuLT', '', 'users\\rikz\\КОТЭЭ.bmp', 'users\\rikz\\8d77f1c5fd595f3c38ed6c137e674467480.mp4', '', 3, 1, '2019-12-19', 0, 0, 1, 0),
+(37, 'MuuuuuuuuuuuuuuuuuuuLT', '', 'users\\rikz\\КОТЭЭ.bmp', 'users\\rikz\\8d77f1c5fd595f3c38ed6c137e674467480.mp4', '', 3, 1, '2019-12-19', 1, 0, 1, 0),
 (38, 'FUUFF', 'NUR SULTAN 1 LVL', 'users\\rikz\\НУР-СУЛТАН_1-го_УРОВНЯ.png', 'users\\rikz\\8d77f1c5fd595f3c38ed6c137e674467480.mp4', '', 3, 1, '2019-12-19', 1, 0, 1, 0),
-(54, 'HiddenShrek', 'OH HELLO THERE', 'users\\rikz\\670431fd09d738afdf3388cde211281c.jpg', 'users\\rikz\\8d77f1c5fd595f3c38ed6c137e674467480.mp4', 'Shrekspeare', 3, 1, '2019-12-20', 1, 0, 0, 0);
+(54, 'HiddenShrek', 'OH HELLO THERE', 'users\\rikz\\670431fd09d738afdf3388cde211281c.jpg', 'users\\rikz\\8d77f1c5fd595f3c38ed6c137e674467480.mp4', 'Shrekspeare', 3, 1, '2019-12-20', 3, 0, 0, 0),
+(55, 'aaaa', '', 'users\\rikz\\Clash.png', 'users\\rikz\\8d77f1c5fd595f3c38ed6c137e674467480.mp4', '', 1, 1, '2019-12-22', 3, 0, 1, 0),
+(64, 'wqqw', '', 'users\\qwerty\\670431fd09d738afdf3388cde211281c.jpg', 'users\\qwerty\\8d77f1c5fd595f3c38ed6c137e674467480.mp4', '', 1, 10, '2019-12-22', 2, 0, 1, 1),
+(65, 'rebverb', '', 'users\\rikz\\factorio.png', 'users\\rikz\\8d77f1c5fd595f3c38ed6c137e674467480.mp4', 'vcd', 1, 1, '2019-12-23', 1, 0, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -143,7 +146,11 @@ CREATE TABLE `genre_association` (
 INSERT INTO `genre_association` (`id`, `genre_id`, `video_id`) VALUES
 (10, 5, 54),
 (11, 9, 54),
-(12, 14, 54);
+(12, 14, 54),
+(13, 5, 55),
+(14, 18, 64),
+(15, 9, 65),
+(16, 13, 65);
 
 -- --------------------------------------------------------
 
@@ -275,7 +282,7 @@ ALTER TABLE `comments`
 -- AUTO_INCREMENT для таблицы `files`
 --
 ALTER TABLE `files`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
 
 --
 -- AUTO_INCREMENT для таблицы `genres`
@@ -287,7 +294,7 @@ ALTER TABLE `genres`
 -- AUTO_INCREMENT для таблицы `genre_association`
 --
 ALTER TABLE `genre_association`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT для таблицы `ratings`

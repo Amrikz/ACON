@@ -4,13 +4,13 @@
 </form>
 <h1 id='about'>Новое</h1>
 		<?php 
-		$query = "SELECT id,title,preview,creator,upload_date,views,middle_rating FROM `files` WHERE showing = 1 ORDER BY `files`.`upload_date` DESC LIMIT 10";
-		draw_video($query);
+		$query = "SELECT * FROM `files` WHERE showing = 1 ORDER BY `files`.`upload_date` DESC LIMIT 20";
+		draw_video($query,0,10);
 		echo "<h1 id='about'>Самый высокий рейтинг</h1>";
-		$query = "SELECT id,title,preview,creator,upload_date,views,middle_rating FROM `files` WHERE showing = 1 ORDER BY `files`.`middle_rating` DESC LIMIT 10";
-		draw_video($query);
-		echo "<h1 id='about'>По просмотрам</h1>";
-		$query = "SELECT id,title,preview,creator,upload_date,views,middle_rating FROM `files` WHERE showing = 1 ORDER BY `files`.`views` DESC";
+		$query = "SELECT * FROM `files` WHERE showing = 1 ORDER BY `files`.`middle_rating` DESC LIMIT 20";
+		draw_video($query,0,10);
+		echo "<h1 id='about'>Самое популярное</h1>";
+		$query = "SELECT * FROM `files` WHERE showing = 1 ORDER BY `files`.`views` DESC";
 		draw_video($query);
 		?>
 	</div>

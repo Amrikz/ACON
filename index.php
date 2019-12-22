@@ -30,6 +30,9 @@ switch ($url) {
 	case 'account':
 		require 'blocks/account.php';
 		break;
+	case 'videoadd':
+		require 'blocks/videoadd.php';
+		break;
 	case 'register':
 		require 'blocks/register.php';
 		break;

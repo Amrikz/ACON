@@ -103,13 +103,21 @@
   }
   
 
-  function draw_video($query = 0) {
+  function draw_video($query = 0, $showmoderating = 0, $limit = -1) {
 	if ($query) {
 		require "lib/db.php";
 		$data = mysqli_query($dbc,$query);
 		$info = mysqli_fetch_assoc($data);
 		echo "<div class='videos'>";
+		if (!$info) {
+			echo "<p id='about'>Извините,сейчас тут ничего нет.</p>";
+		}
+		$counter = 0;
 		while ($info) {
+			if ($counter == $limit) {
+				break;
+			}
+			if ((!$info['moderating']) || ($info['moderating'] && $showmoderating == 1)) {
 				if (!$info['preview'] || !file_exists($info['preview'])) {
 					$info['preview'] = "images\\vid_paceholder.jpg";
 				}
@@ -117,14 +125,14 @@
 					$info['middle_rating'] = "Не оценено";
 				}
 
-        if ($info['showing'] == 0 && $info['showing'] != NULL) {
-          echo "
-            <div class='video' style='border: 3px #615f57 solid;'>";
-        }
-        else{
-          echo "
-            <div class='video'>";
-        }
+		        if ($info['showing'] == 0 && $info['showing'] != NULL) {
+		          echo "
+		            <div class='video' style='border: 3px #615f57 solid;'>";
+		        }
+		        else{
+		          echo "
+		            <div class='video'>";
+		        }
 				echo "
 		        	<form method='GET' action='watch'>
 		            <button class='videoButton' name='vid' value=".$info['id']."><img class='videoPreview' src=".$info['preview'].">
@@ -136,7 +144,12 @@
 		            <i id='homeViews'>Просмотры: ".$info['views']."</i>
 		            <h6 id='homeAddInfo'>Загружено: ".$info['upload_date']."<i>".$info['middle_rating']."/10</i></h6>
 		        </div>";
-		        $info = mysqli_fetch_assoc($data);
+		        $counter++;
+		    }
+		    elseif ($counter == 0) {
+		    	echo "<p id='about'>Извините,сейчас тут ничего нет.</p>";
+		    }
+		    $info = mysqli_fetch_assoc($data);
 		}
 		echo "</div>";
 	}

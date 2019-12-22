@@ -36,20 +36,6 @@
 							$query = "INSERT INTO `files` (`id`, `title`, `description`, `preview`, `location`, `author`, `main_genre`, `creator`, `upload_date`, `views`, `showing`, `moderating`) VALUES (NULL, ?, ?, ? , ?, ?, ? , ?, ?, '0', ?, '0')";
 						    $stmt = mysqli_prepare($GLOBALS['dbc'],$query);
 						    mysqli_stmt_bind_param($stmt, 'sssssiisi', $_POST['title'], $_POST['description'], $_FILES["preview"]['fin_Upl_Dir'], $_FILES["video"]['fin_Upl_Dir'], $_POST['author'], $_POST['maingenre'], $_SESSION['user_id'], $date, $_POST['show']);
-						    /*var_dump($_POST['title']);
-						    echo "<br>";
-						    var_dump($_POST['description']);
-						    echo "<br>";
-						    var_dump($_FILES["preview"]['fin_Upl_Dir']);
-						    echo "<br>";
-						    var_dump($_FILES["video"]['fin_Upl_Dir']);
-						    echo "<br>";						    
-						    var_dump($_POST['author']);
-						    echo "<br>";
-						    var_dump($_SESSION['user_username']);
-						    echo "<br>";
-						    var_dump($date);
-						    echo "<br>";*/
 						    if (!mysqli_stmt_execute($stmt)) {
 				      			echo "Error:" . mysqli_error($GLOBALS['dbc']);
 				      		}
@@ -84,13 +70,13 @@
 						<form enctype="multipart/form-data"  method="POST" class="videomake">
 						<input type="hidden" name="MAX_FILE_SIZE" value="50000000" />
 						<label class="registrationLabels">Название видео</label>
-						<input type="text" name="title" placeholder="..." class="registrationInputs" maxlength=200 > <!--required-->
+						<input type="text" name="title" placeholder="..." class="registrationInputs" maxlength=200 required>
 						<label class="registrationLabels" >Описание видео</label>
 				    	<textarea name="description" cols ="50" class="adminTextarea"></textarea>
 				    	<label class="registrationLabels">Превью</label>
 				    	<input name="preview" type="file" />
 				    	<label class="registrationLabels">Видео</label>
-				    	<input name="video" type="file" /> <!--required-->
+				    	<input name="video" type="file" required /> 
 				    	<label class="registrationLabels">Автор</label>
 						<input type="text" name="author" placeholder="..." class="registrationInputs" maxlength=150>
 						<div>
