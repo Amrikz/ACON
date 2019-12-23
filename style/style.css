@@ -200,6 +200,18 @@ content .container{
     top: 10px;
 }
 
+#moderate_form{
+  display: flex;
+    width: 70%;
+    margin-left: 15%;
+    flex-flow: wrap;
+    justify-content: space-between;
+}
+
+#video_moderating{
+  background-color: blueviolet;
+}
+
 .videos{
   display: flex;
   flex-wrap: wrap;

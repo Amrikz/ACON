@@ -2,20 +2,46 @@
 //Проверки валидности перехода по ссылке
 	if ($_GET['vid']) {
 		require "lib/db.php";
-		$query = "SELECT id,title,description,location,author,main_genre,creator,upload_date,views,middle_rating,showing FROM `files` WHERE id = ? LIMIT 1";
+		$query = "SELECT id,title,description,preview,location,author,main_genre,creator,upload_date,views,middle_rating,showing,moderating FROM `files` WHERE id = ? LIMIT 1";
 		$stmt = mysqli_prepare($GLOBALS['dbc'],$query);
 		mysqli_stmt_bind_param($stmt, 'i', $_GET['vid']);
 		mysqli_stmt_execute($stmt);
-		mysqli_stmt_bind_result($stmt,$id,$title,$description,$location,$author,$main_genre,$creator,$upload_date,$views,$middle_rating,$showing);
+		mysqli_stmt_bind_result($stmt,$id,$title,$description,$preview,$location,$author,$main_genre,$creator,$upload_date,$views,$middle_rating,$showing,$moderating);
 		$role = level('',1); (!$role <= 3 || $role != NULL);
 		if (!mysqli_stmt_fetch($stmt)) {
 			exit("<p class='user404'>Видео не доступно</p>");
 		}
-		elseif (!$showing && ($role >= 4 || $role == NULL)) {
+		elseif (((!$showing || $moderating) && ($role >= 4 || $role == NULL)) && $creator != $_SESSION['user_id']) {
 			exit("<p class='user404'>Видео не доступно</p>");
 		}
 
-
+//moderating
+		if ($_POST['approve'] == 1) {
+			require "lib/db.php";
+			$query = "UPDATE `files` SET `moderating` = '0' WHERE `files`.`id` = '$_GET[vid]'";
+			mysqli_query($dbc,$query);
+			exit("<meta http-equiv='refresh' content='0;url=moderator'>");
+		}
+		elseif ($_POST['approve'] == 0 && $_POST['approve'] != NULL) {
+			require "lib/db.php";
+			$query = "DELETE FROM `files` WHERE `files`.`id` = '$_GET[vid]'";
+			mysqli_query($dbc,$query);
+			//Удаление всего и вся
+			unlink ($location);
+			unlink ($preview);
+			$query = "SELECT genre_id FROM `genre_association` WHERE `video_id` = '$_GET[vid]'";
+			$data = mysqli_query($GLOBALS['dbc'],$query);
+  			$info = mysqli_fetch_assoc($data);
+  			if ($info) {
+................................................................................................................................
+  				$genre_query = "SELECT genre FROM `genres` WHERE id = '$info[genre_id]'";
+				$genre_data = mysqli_query($GLOBALS['dbc'],$genre_query);
+  				$fetchedGenre = mysqli_fetch_assoc($genre_data);
+................................................................................................................................
+  				$info = mysqli_fetch_assoc($data);
+  			}
+			exit("<meta http-equiv='refresh' content='0;url=moderator'>");
+		}
 //THRESH
 		if ($_POST['trash']) {
 			require "lib/db.php";
@@ -127,7 +153,7 @@ function updateRating () {
   		$info = mysqli_fetch_assoc($data);
   		if ($info) {
   			$GENRES = "<div id='videoGenresDiv'>";
-  			while ($info) {
+  			while ($info) {	
   				$genre_query = "SELECT genre FROM `genres` WHERE id = '$info[genre_id]'";
 				$genre_data = mysqli_query($GLOBALS['dbc'],$genre_query);
   				$fetchedGenre = mysqli_fetch_assoc($genre_data);
@@ -182,11 +208,22 @@ function updateRating () {
 
 
 //Само видео
+		if ($moderating) {
+			?>
+			<div id='video_moderating'>
+				<form method="POST" id="moderate_form">
+					<button type="submit" name="approve" value="1">Подтвердить</button>
+					<p id='about'>Это видео находится в стадии модерации</p>
+					<button type="submit" name="approve" value="0">Отклонить</button>
+				</form>
+			</div>
+			<?
+		}
 		echo "
 		<video src=$location controls autoplay id='video'></video>
 		<h2 id='videoTitle'><p>$title$author </p><i id='views'>$views</i></h2>
 		<form method='GET' action='account'>
-	        <p id='videoAccountbutton'>".accountButton($creator)."<i id='views'>$middle_rating/10 - Средний рейтинг</i></p>
+	        <p id='videoAccountbutton'>".accountButton($creator)."<i id='views'>$middle_rating/10 - Рейтинг</i></p>
 	    </form>
 	    ".$GENRES."
 	    <form method='POST'>

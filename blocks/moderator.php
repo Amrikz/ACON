@@ -3,7 +3,7 @@
 		exit("<meta http-equiv='refresh' content='0; url= home'>");
 	}
 	$role = level('',1);
-	if ($role <= 2) {
+	if ($role <= 3) {
 		require "lib/adminFunc.php";
 			if (!$_POST['moder_option'] && $_SESSION['moder_option']) {
 				if ($_POST['moder_option'] != NULL) {
@@ -14,7 +14,7 @@
 					echo "<p class='adminFunctions'>Функции модератор-панели:</p>";
 					?>
 					<form method="POST" class='adminButtons'>
-						<button type='submit' class='adminButton' name='moder_option' value="add">Отбор видео</button>
+						<button type='submit' class='adminButton' name='moder_option' value="ChooseVideo">Отбор видео</button>
 					</form>
 					<?php
 			}
@@ -29,8 +29,10 @@
 			if ($_SESSION['moder_option']) {
 				$option = $_SESSION['moder_option'];
 				switch ($option) {
-				 	case 'add':
-				 		#somecase
+				 	case 'ChooseVideo':
+				 	echo "<h1 id='about'>Видео на модерацию:</h1>";
+				 		$query = "SELECT * FROM `files` WHERE moderating = 1 ORDER BY `files`.`upload_date` ASC";
+						draw_video($query,1);
 				 		break;
 				 	
 				 	default:
