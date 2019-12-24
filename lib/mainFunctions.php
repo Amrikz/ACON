@@ -146,7 +146,7 @@
 		        </div>";
 		        $counter++;
 		    }
-		    elseif ($counter == 0) {
+		    elseif ($counter == 0 && $showmoderating == 1) {
 		    	echo "<p id='about'>Извините,сейчас тут ничего нет.</p>";
 		    }
 		    $info = mysqli_fetch_assoc($data);

@@ -33,11 +33,11 @@
 			$data = mysqli_query($GLOBALS['dbc'],$query);
   			$info = mysqli_fetch_assoc($data);
   			if ($info) {
-................................................................................................................................
+
   				$genre_query = "SELECT genre FROM `genres` WHERE id = '$info[genre_id]'";
 				$genre_data = mysqli_query($GLOBALS['dbc'],$genre_query);
   				$fetchedGenre = mysqli_fetch_assoc($genre_data);
-................................................................................................................................
+
   				$info = mysqli_fetch_assoc($data);
   			}
 			exit("<meta http-equiv='refresh' content='0;url=moderator'>");

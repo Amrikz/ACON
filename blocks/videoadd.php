@@ -32,15 +32,15 @@
 					mysqli_stmt_bind_result($stmt,$id);
 					mysqli_stmt_fetch($stmt);
 					if ($id) {
-						$query = "INSERT INTO `genre_association` (`id`, `genre_id`, `video_id`) VALUES (NULL, $id, '$video_id')";
 						require "lib/db.php";
+						$query = "INSERT INTO `genre_association` (`id`, `genre_id`, `video_id`) VALUES (NULL, $id, '$video_id')";
 						mysqli_query($dbc,$query);
 					}
-					if ($is_moderating == 1) {
-						echo "<p id='about'>Спасибо за добавление видео! Ждите одобрения со стороны модераторов.</p>";
-					}				      					
-				}
+				}				      					
  			}
+ 			if ($is_moderating == 1) {
+				echo "<p id='about'>Спасибо за добавление видео! Ждите одобрения со стороны модераторов.</p>";
+			}
  		}
 	}
 	elseif ($_POST['title'] || $_FILES["video"]['fin_Upl_Dir'] || $_POST['maingenre']) {
