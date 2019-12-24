@@ -42,6 +42,9 @@ switch ($url) {
 	case 'admin':
 		require 'blocks/admin.php';
 		break;	
+	case 'help':
+		require 'blocks/help.php';
+		break;
 	default:
 		require 'blocks/404.php';
 		break;

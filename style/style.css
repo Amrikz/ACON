@@ -455,6 +455,12 @@ content .container{
     font-size: 500%;
 }
 
+#help_div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 
 footer{
     background-color: black;

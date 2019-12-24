@@ -26,7 +26,7 @@
               <a href="films" class="topLinks">Фильмы</a>
               <a href="serials" class="topLinks">Сериалы</a>
               <a href="mults" class="topLinks">Мультфильмы</a>
-              <a href="#" class="topLinks">Помощь</a>
+              <a href="help" class="topLinks">Помощь</a>
          </div>
          <!--Logging-->
              <?php if (!$_SESSION['user_id']) { 
