@@ -24,21 +24,21 @@
 		}
 		elseif ($_POST['approve'] == 0 && $_POST['approve'] != NULL) {
 			require "lib/db.php";
+			//Удаление всего и вся
 			$query = "DELETE FROM `files` WHERE `files`.`id` = '$_GET[vid]'";
 			mysqli_query($dbc,$query);
-			//Удаление всего и вся
 			unlink ($location);
 			unlink ($preview);
-			$query = "SELECT genre_id FROM `genre_association` WHERE `video_id` = '$_GET[vid]'";
+			$query = "SELECT id FROM `genre_association` WHERE `video_id` = '$_GET[vid]'";
 			$data = mysqli_query($GLOBALS['dbc'],$query);
   			$info = mysqli_fetch_assoc($data);
   			if ($info) {
-
-  				$genre_query = "SELECT genre FROM `genres` WHERE id = '$info[genre_id]'";
-				$genre_data = mysqli_query($GLOBALS['dbc'],$genre_query);
-  				$fetchedGenre = mysqli_fetch_assoc($genre_data);
-
-  				$info = mysqli_fetch_assoc($data);
+  				while ($info) {
+  					var_dump($info);
+  					$subgenre_query = "DELETE FROM `genre_association` WHERE `genre_association`.`id` = '$info[id]'";
+  					mysqli_query($GLOBALS['dbc'],$subgenre_query);
+  					$info = mysqli_fetch_assoc($data);
+  				}
   			}
 			exit("<meta http-equiv='refresh' content='0;url=moderator'>");
 		}
@@ -208,7 +208,8 @@ function updateRating () {
 
 
 //Само видео
-		if ($moderating) {
+		$role = level('',1);
+		if ($moderating && ($role != NULL && $role <= 3)) {
 			?>
 			<div id='video_moderating'>
 				<form method="POST" id="moderate_form">
@@ -259,7 +260,6 @@ function updateRating () {
 			$count = 1;
 			while ($info) {
 				//Thrash button
-				$role = level('',1);
 				if (($role <= 3 && $role != NULL) || ($info['user_id'] == $_SESSION['user_id'])) {
 					$trashButton = "<form method='POST'><button id='trashButton' value=".$info['id']." name='trash'><i class='fas fa-trash-alt'></i></button></form>";
 				}
