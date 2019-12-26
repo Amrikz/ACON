@@ -15,6 +15,9 @@ switch ($url) {
 	/*case 'forgot':
 		require 'blocks/forgpass.php';
 		break;*/
+	case 'search':
+		require 'blocks/search.php';
+		break;
 	case 'watch':
 		require 'blocks/watch.php';
 		break;

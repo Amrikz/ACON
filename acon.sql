@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Дек 26 2019 г., 05:30
+-- Время создания: Дек 27 2019 г., 00:12
 -- Версия сервера: 10.3.13-MariaDB-log
 -- Версия PHP: 7.3.9
 
@@ -74,10 +74,11 @@ CREATE TABLE `files` (
 --
 
 INSERT INTO `files` (`id`, `title`, `description`, `preview`, `location`, `author`, `main_genre`, `creator`, `upload_date`, `views`, `middle_rating`, `showing`, `moderating`) VALUES
-(69, 'Кукла 2: Брамс', 'Благополучная английская семья переезжает в старинный особняк Хилшир. В одной из комнат младший сын находит странную комнату.', 'users\\rikz\\1.jpeg', 'users\\rikz\\1.mp4', 'Уильям Брент Белл', 1, 1, '2019-12-26', 2, 5, 1, 0),
+(69, 'Кукла 2: Брамс', 'Благополучная английская семья переезжает в старинный особняк Хилшир. В одной из комнат младший сын находит странную комнату.', 'users\\rikz\\1.jpeg', 'users\\rikz\\1.mp4', 'Уильям Брент Белл', 1, 1, '2019-12-26', 4, 5, 1, 0),
 (70, 'Огонь', '', 'users\\rikz\\2.jpeg', 'users\\rikz\\2.mp4', ' Алексей Черномазов', 1, 1, '2019-12-26', 2, 6, 1, 0),
 (72, 'На острие', '', 'users\\rikz\\4.jpeg', 'users\\rikz\\4.mp4', ' Эдуард Бордуков', 1, 1, '2019-12-26', 2, 2, 1, 0),
-(73, 'Шахматист', '', 'users\\rikz\\3.jpeg', 'users\\rikz\\3.mp4', ' Пьер-Франсуа Мартен-Лаваль', 1, 1, '2019-12-26', 2, 7, 1, 0);
+(73, 'Шахматист', '', 'users\\rikz\\3.jpeg', 'users\\rikz\\3.mp4', ' Пьер-Франсуа Мартен-Лаваль', 1, 1, '2019-12-26', 2, 7, 1, 0),
+(74, 'Ого Кукла', '', 'users\\fuf\\2.jpeg', 'users\\fuf\\2.mp4', '', 1, 9, '2019-12-26', 3, 0, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -141,7 +142,18 @@ INSERT INTO `genre_association` (`id`, `genre_id`, `video_id`) VALUES
 (28, 13, 71),
 (29, 15, 71),
 (30, 13, 73),
-(31, 15, 73);
+(31, 15, 73),
+(32, 5, 74),
+(33, 6, 74),
+(34, 8, 74),
+(35, 9, 74),
+(36, 10, 74),
+(37, 12, 74),
+(38, 13, 74),
+(39, 14, 74),
+(40, 16, 74),
+(41, 17, 74),
+(42, 18, 74);
 
 -- --------------------------------------------------------
 
@@ -271,7 +283,7 @@ ALTER TABLE `comments`
 -- AUTO_INCREMENT для таблицы `files`
 --
 ALTER TABLE `files`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
 
 --
 -- AUTO_INCREMENT для таблицы `genres`
@@ -283,7 +295,7 @@ ALTER TABLE `genres`
 -- AUTO_INCREMENT для таблицы `genre_association`
 --
 ALTER TABLE `genre_association`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
 -- AUTO_INCREMENT для таблицы `ratings`

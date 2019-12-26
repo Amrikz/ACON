@@ -71,7 +71,7 @@
         <!--Поле поиска-->
           <form action="search" method="GET" id=search>
             <input name="search" placeholder="Искать здесь..." type="search" id="searchinput">
-            <button type="submit" id="searchbutton" name="search_query" value="1" ><i class="fas fa-search" id="searchsymbol"></i></button>
+            <button type="submit" id="searchbutton" ><i class="fas fa-search" id="searchsymbol"></i></button>
           </form>
         <?php
         if ($fillforms) echo "<p id='message'>Пожалуйста,заполните поля</p>";

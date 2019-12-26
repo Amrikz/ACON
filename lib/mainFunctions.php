@@ -103,14 +103,17 @@
   }
   
 
-  function draw_video($query = 0, $showmoderating = 0, $limit = -1) {
-	if ($query) {
-		require "lib/db.php";
-		$data = mysqli_query($dbc,$query);
-		$info = mysqli_fetch_assoc($data);
-		echo "<div class='videos'>";
-		if (!$info) {
-			echo "<p id='about'>Извините,сейчас тут ничего нет.</p>";
+  function draw_video($query = 0, $showmoderating = 0, $limit = -1, $info = 0) {
+	if ($query || $info) {
+		if ($info == 0) {
+			require "lib/db.php";
+			$data = mysqli_query($dbc,$query);
+			$info = mysqli_fetch_assoc($data);
+			echo "<div class='videos'>";
+			if (!$info) {
+				echo "<p id='about'>Извините,сейчас тут ничего нет.</p>";
+			}
+			$selfdb = 1;
 		}
 		$counter = 0;
 		while ($info) {
@@ -149,9 +152,16 @@
 		    elseif ($counter == 0 && $showmoderating == 1) {
 		    	echo "<p id='about'>Извините,сейчас тут ничего нет.</p>";
 		    }
-		    $info = mysqli_fetch_assoc($data);
+		    if ($selfdb) {
+		    	$info = mysqli_fetch_assoc($data);
+		    }
+		    else{
+		    	$info = 0;
+		    }
 		}
-		echo "</div>";
+		if ($selfdb) {
+			echo "</div>";
+		}
 	}
 }
 ?>

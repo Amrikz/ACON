@@ -34,7 +34,6 @@
   			$info = mysqli_fetch_assoc($data);
   			if ($info) {
   				while ($info) {
-  					var_dump($info);
   					$subgenre_query = "DELETE FROM `genre_association` WHERE `genre_association`.`id` = '$info[id]'";
   					mysqli_query($GLOBALS['dbc'],$subgenre_query);
   					$info = mysqli_fetch_assoc($data);
@@ -86,17 +85,14 @@ function updateRating () {
 	$query = "SELECT rating FROM `ratings` WHERE video_id = '$_GET[vid]'";
 	$data = mysqli_query($dbc,$query);
 	$info = mysqli_fetch_assoc($data);
-	//var_dump($info);
 	while ($info) {
 		$totalRating += $info['rating'];
 		$count++;
 		$info = mysqli_fetch_assoc($data);
-		//var_dump($info);
 	}
 	$rating = $totalRating/$count;
 	if ($rating) {
 		$rating = round($rating, 1); 
-		//var_dump($rating);
 		$query = "UPDATE `files` SET `middle_rating` = '$rating' WHERE `files`.`id`='$_GET[vid]'";
 		mysqli_query($dbc,$query);
 	}
@@ -112,7 +108,6 @@ function updateRating () {
 					$query = "SELECT id,rating FROM `ratings` WHERE video_id = '$_GET[vid]' AND user_id = '$_SESSION[user_id]'";
 					$data = mysqli_query($GLOBALS['dbc'],$query);
 	      			$info = mysqli_fetch_assoc($data);
-	      			//var_dump($info);
 	      			if ($info == NULL) {
 	      				$query = "INSERT INTO `ratings` (`id`, `video_id`, `user_id`, `rating`) VALUES (NULL, ?, ?, ?)";
 						$stmt = mysqli_prepare($GLOBALS['dbc'],$query);

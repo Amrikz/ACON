@@ -73,7 +73,6 @@
 		$data = mysqli_query($GLOBALS['dbc'],$query);
 		$info = mysqli_fetch_assoc($data);
 		$info['id'] = $info['id']." checked";
-		//var_dump($info);
 		while ($info) {
 			echo "<input type='radio' name='maingenre' class='adminGenreRadio' value=".$info['id'].">
 			<label class='adminGenreRadioLabel'>".$info['genre']."</label>";
