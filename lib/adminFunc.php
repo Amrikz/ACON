@@ -15,8 +15,6 @@
 			 			mkdir( $dir );       
 			} 
 			echo "<pre>";
-			/*print_r($_FILES);
-			print_r($dir.$filename);*/
 			if ($key  == 'video') {
 				if ($_FILES["$key"]['type'] == 'video/mp4') {
 					$upload = move_uploaded_file($_FILES["$key"]['tmp_name'], $dir.$filename);
